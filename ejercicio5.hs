@@ -2,7 +2,7 @@
 todosMenores10 :: [Int] -> Bool
 
 todosMenores10 xs | length xs == 0 = True 
-				  | (head xs) < 10 = todosMenores10 (tail xs) 
+                  | (head xs) < 10 = todosMenores10 (tail xs) 
                   | (head xs) >= 10 = False   
 
 hay0 :: [Int] -> Bool
