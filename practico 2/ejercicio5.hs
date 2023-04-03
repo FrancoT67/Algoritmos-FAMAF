@@ -9,8 +9,8 @@ todosMenores10 xs | length xs == 0 = True
 hay0 :: [Int] -> Bool
 
 hay0 xs | length xs == 0 = False
-        | (head xs) ==0 = True 
-        | (head xs) /=0 = hay0 (tail xs)   
+        | head xs ==0 = True 
+        | head xs /=0 = hay0 (tail xs)   
 
 --c)
 sumar :: [Int] -> Int
