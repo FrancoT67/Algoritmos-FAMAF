@@ -1,8 +1,6 @@
-todosMe10 ::  [Int] -> Bool
+repartir :: [String] -> [String] -> [(String, String)] 
 
---Caso en el que sea vacio
-todosMe10 []=True
---el x es el primer elemento de la lista xs
-todosMe10 (x:xs) | x<10 = todosMe10 xs |x >= 10 = False
-
-                 
+repartir [] []= []
+repartir [] xs= []
+repartir ys []= []
+repartir (x:xs) (y:ys) = (x,y) : repartir xs ys

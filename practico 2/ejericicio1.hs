@@ -2,6 +2,7 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Eta reduce" #-}
 {-# HLINT ignore "Use list literal" #-}
+{-# HLINT ignore "Redundant bracket" #-}
 longitud a= length a
 
 --B)
