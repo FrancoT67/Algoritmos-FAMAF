@@ -1,0 +1,72 @@
+• Notas 
+
+patron -> x : xs ( x es el 1er elemento de la lista xs )
+
+identidad -> es -> e === e
+
+sumar ( x:xs ) = x + sumar xs 
+
+sumar1 [] = []
+
+sumar1 ( x:xs ) = ( x+1 ) : sumar1 xs
+
+length [] = 0
+
+length ( x:xs ) = 1 + length xs
+
+[] ++ ys = ys
+
+( x:xs ) ++  ys = x : ( xs++ys)
+• Problema 
+sumar ( sumar1 xs ) = sumar xs + length xs
+
+•INICIO caso base  ⬇⬇⬇
+
+sumar ( sumar1 [] ) = sumar [] + length [] 
+=== { def sumar1 : [] }
+
+sumar [] = sumar [] + length []
+=== { def sumar: []}
+
+0 = 0 + length []
+=== { def length [] }
+
+0 = 0 + 0
+==={ def neutro + , identidad }
+
+True
+
+• FIN caso base ⬆⬆⬆
+
+• INICIO paso inductivo ⬇⬇⬇
+
+sumar ( sumar ( x:xs )) = sumar ( x:xs ) + length ( x:xs )
+=== { def sumar1 : ( x:xs )}
+
+sumar ( ( x+1 ) : sumar1 xs ) = sumar ( x:xs ) + length ( x:xs )
+=== { def sumar : x : xs }
+
+( x+1 ) + sumar ( sumar1 xs ) = x + sumar xs + length xs
+=== { def lenght : x : xs}
+
+( x+1 ) + sumar ( sumar1 xs ) = x + sumar xs + 1 + length xs
+==={ Hipotesis Inductiva }
+
+x + 1 + sumar xs +  length xs = x + sumar xs + 1 + length xs
+=== { conmutatividad del + , identidad }
+
+True
+
+• FIN caso inductivo ⬆⬆⬆
+
+•INICIO caso base  ⬇⬇⬇
+
+xs ++ [] = xs
+=== { def xs }
+
+
+• FIN caso base ⬆⬆⬆
+
+• INICIO paso inductivo ⬇⬇⬇
+
+• FIN caso inductivo ⬆⬆⬆
