@@ -1,3 +1,4 @@
+
 --9.a) maximo
 maximo :: [Int] -> Int
 maximo []=error "no hay maximo en una lista vacia"
@@ -17,18 +18,51 @@ sumaPares ((x,y):xs) = x+y + sumaPares xs
 
 todos0y1 :: [Int] -> Bool
 
-todos0y1 [] = True
-todos0y1 (x:xs) | ((x==0) || (x==1)) && todos0y1 xs = True 
+todos0y1 [] = False
+todos0y1 (x:xs) | (x == 0 || x == 1 ) && todos0y1 xs = True
                 | (x/=0) || (x/=1) = False
 
 -- 9.d) quitar0s
 --Ej quitar0s [2,0,3,4] = [2,3,4]
 
-quitar0S ::  [Int] -> [Int]
+quitar0s ::  [Int] -> [Int]
 
-quitar0S [] = []
+quitar0s [] = []
 
-quitar0S (x:xs) | x==0 = quitar0S xs
-                | x /= 0 = x:quitar0S xs
+quitar0s (x:xs) | x == 0 = quitar0s xs
+                | x /= 0 = x:quitar0s xs
 
--- //remover un elemento de una lista en haskell?
+
+-- 9.e) ultimo 
+-- Ej ultimo [1,2,5] = 5
+ultimo :: [a] -> a
+
+ultimo [] = error "Lista Vacia"
+
+ultimo (x:xs) | null xs = x
+              | not (null xs) = ultimo xs
+
+
+
+-- 9.f) repetir
+--Ej repetir 3 6 = [6,6,6]
+repetir :: Int -> Int -> [Int]
+
+repetir n k | n > 0 = k:repetir (n-1) k
+            | n<=0 = []
+
+-- 9.g) concat 
+-- Ej concat [[1,4],[],[2]] = [1,4,2]
+
+conCat :: [[a]] -> [a]
+
+conCat [[]] = []
+conCat (x:xs) | not(null xs) = x++conCat xs
+              | null xs = x 
+
+-- 9.h) rev 
+-- Ej rev [1,2,3] = [3,2,1,]
+
+rev :: [a] -> [a]
+rev [] = []
+rev (x:xs) = rev xs ++ [x]
