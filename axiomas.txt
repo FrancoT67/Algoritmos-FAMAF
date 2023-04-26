@@ -1,0 +1,25 @@
+Asociatividad equivalencia: ((P ≡ Q) ≡ R) ≡ (P ≡ (Q ≡ R))
+
+Conmutatividad equivalencia: P ≡ Q ≡ Q ≡ P
+
+Neutro equivalencia: P ≡ True ≡ P
+
+Definición de Negación: ¬(P ≡ Q) ≡ ¬P ≡ Q
+
+Definición de False: False ≡ ¬True
+
+Definición de discrepancia: P ≠ Q ≡ ¬(P ≡ Q) 
+
+------------------------------------------------------------------
+
+Asociatividad disyunción: (P ∨ Q) ∨ R ≡ P ∨ (Q ∨ R)
+
+Conmutatividad disyunción: P ∨ Q ≡ Q ∨ P
+
+Idempotencia disyunción: P ∨ P ≡ P
+
+Distributividad disyunción con equivalencia: P ∨ (Q ≡ R) ≡ (P ∨ Q) ≡ (P ∨ R)
+
+Tercero excluido: P ∨ ¬P
+
+Regla dorada: P ∧ Q ≡ P ≡ Q ≡ P ∨ Q

@@ -1,0 +1,127 @@
+5.a)Valida y satisfactible
+- p ≡ p
+b) satisfactible pero no Valida
+- ¬p ≡ q
+caso p ≡ False y q ≡ True
+c) no satisfactible (y por lo tanto no valida)
+- p ≡ ¬p
+
+6.)
+a- Reflexividad del equivalente: (p ≡ p) ≡ True
+
+(p ≡ p) ≡ True
+≡{ def de asociatividad, P:=p, Q:= p}
+
+p ≡ p ≡ True
+≡{ def de neutro equivalencia, P:=p}
+
+True ≡ True
+
+b-  Doble negación: ¬¬p ≡ p
+¬¬p ≡ p
+≡{def de negacion , P:=¬p, Q:= p}
+
+¬(¬(p≡p))
+≡{def de neutro equivalencia,P:=p}
+
+¬(¬true)
+≡{def de False}
+
+¬(false)
+≡{por opuesto de False}
+
+True
+
+7-  Decidir si son validas o no
+a) p ≡ p ≡ p ≡ True 
+-No Valida,porque p si es False, las igualdades no terminan en True, por ende no es el mismo resultado.
+
+b)((p ≠ q) ≡ r) ≡ (p ≠ (q ≡ r))
+≡{def de discrepancia}
+
+(¬(p≡q)≡r) ≡ (p ≠ (q ≡ r))
+≡{def de Conmutatividad}
+
+(¬(p≡q)≡r) ≡ ((p ≠ q) ≡ r)
+≡{def de discrepancia}
+
+(¬(p≡q)≡r) ≡ (¬(p≡q)≡r)
+
+True
+
+c) (p ≡ q) ≡ (¬p ≡ ¬q)
+≡{def de negacion}
+
+(p ≡ q) ≡ (¬(p ≡ ¬q))
+≡{def de Conmutatividad}
+
+(p ≡ q) ≡ (¬(¬q ≡ p))
+≡{def de Doble negacion}
+
+(p ≡ q) (p ≡ q) ≡ (q ≡ p)
+≡{def de ≡ }
+True
+
+d)¬p ≡ false
+- no es valida, no existe axioma
+
+e) ¬(p ≡ q) ≡ (¬p ≡ ¬q)
+≡{def de negacion }
+
+¬(p ≡ q) ≡ (¬(p ≡ ¬q))
+≡{def de Conmutatividad}
+
+¬(p ≡ q) ≡ (¬¬(q ≡ p))
+≡{def de Doble negacion}
+
+¬(p ≡ q) ≡ (q ≡ p)
+≡{def de negacion}
+
+(¬p ≡ q) ≡ (q ≡ p)
+
+no es valida.
+
+8- Demostrar que las siguientes formulas son teoremas, justificando cada paso con el axioma aplicado
+
+a)Distributividad de la disyunción con la disyunción: p ∨ (q ∨ r) ≡ (p ∨ q) ∨ (p ∨ r)
+
+p ∨ (q ∨ r) ≡ (p ∨ q) ∨ (p ∨ r)
+≡{def de Conmutatividad }
+
+p ∨ (q ∨ r) ≡ (q ∨ p) ∨ (p ∨ r)
+≡{def de Idempotencia disyunción }
+
+p ∨ (q ∨ r) ≡ q ∨ (p ∨ r)
+≡{def de asociatividad y Conmutatividad }
+
+p ∨ (q ∨ r) ≡ p ∨ (q ∨ r)
+≡{def de ≡ }
+
+True
+
+b)Elemento absorbente de la disyunción: p ∨ True ≡ True
+
+p ∨ True ≡ True
+
+-no valido porque si p:=False entonces F ∨ V = F, entonces queda False ≡ True y no se cumple la igualdad.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
