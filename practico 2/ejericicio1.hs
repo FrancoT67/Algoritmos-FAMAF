@@ -1,29 +1,25 @@
 --A)
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Eta reduce" #-}
-{-# HLINT ignore "Use list literal" #-}
-{-# HLINT ignore "Redundant bracket" #-}
 longitud a= length a
 
 --B)
 
-mostrar a b= a!! b
+mostrar (a b)= a!! b
 
 --C)
 
-agregarVacio a= a :[]
+agregarVacio a = a :[]
 
 --D)
-primeros a b=take a (b)
+primeros a b =take a (b)
 
 --E)
-ultimos a b=drop a (b)
+ultimos a b =drop a (b)
 
 --F)
-cabeza a b= head(a:b)
+cabeza a b = head(a:b)
 --G)
-concatListas  a  b c= (a ++ b) ++ c
+concatListas (a  b c)= (a ++ b) ++ c
 
 --H)
-primerosListasConcat   a b c d e=take a ((b ++ c) ++d)
+primerosListasConcat   (a b c d e)=take a ((b ++ c) ++d)
 
