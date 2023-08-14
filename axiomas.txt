@@ -1,3 +1,6 @@
+https://famaf.aulavirtual.unc.edu.ar/mod/url/view.php?id=55539
+
+
 Asociatividad equivalencia: ((P ≡ Q) ≡ R) ≡ (P ≡ (Q ≡ R))
 
 Conmutatividad equivalencia: P ≡ Q ≡ Q ≡ P
