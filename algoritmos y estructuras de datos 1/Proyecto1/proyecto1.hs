@@ -65,9 +65,14 @@ promedio x = div (sumatoria x) (length x)
 -- promedio [1,2,3,4,5,6] = 3
 -- promedio [4,6] = 5
 
---3)
-pertenece :: Int ->[Int]->Bool
-pertenece a []=False
-pertenece a (b:bs)|a == b || pertenece a bs = True
-|otherwise = False
+-- 3)
+pertenece :: Int -> [Int] -> Bool
+pertenece x [] = False
+pertenece x (y : ys) | x == y = True | x /= y = pertenece x ys
+--pertenece 3 [1,2,3,4] = True
+--pertenece 5 [1,2,3,4] = False
+
+-- 4)
+paratodo' :: [a] -> (a->Bool) -> Bool
+p
 
