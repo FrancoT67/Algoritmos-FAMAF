@@ -64,3 +64,10 @@ promedio x = div (sumatoria x) (length x)
 
 -- promedio [1,2,3,4,5,6] = 3
 -- promedio [4,6] = 5
+
+--3)
+pertenece :: Int ->[Int]->Bool
+pertenece a []=False
+pertenece a (b:bs)|a == b || pertenece a bs = True
+|otherwise = False
+
