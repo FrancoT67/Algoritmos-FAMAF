@@ -16,7 +16,7 @@ esPositivo x = (x > 0)
 
 -- 1C)
 esVocal :: Char -> Bool
-esVocal y = (y == 'a') || (y == 'e') || (y == 'i') || (y == 'o') || (y == 'u')
+esVocal y = y == 'a' || y == 'e' || y == 'i' || y == 'o' || y == 'u'
 
 -- esVocal 'a' = True
 -- esVocal 'z' = False
@@ -42,6 +42,7 @@ sumatoria [] = 0
 sumatoria (x : xs) = x + sumatoria xs
 
 -- sumatoria [1,2,3,4,5,6] = 21
+-- sumatoria [1,2,3,4,5,6,7] = 28
 
 -- 2C)
 productoria :: [Int] -> Int
@@ -49,6 +50,7 @@ productoria [] = 1
 productoria (x : xs) = x * productoria (xs)
 
 -- productoria [1,2,3,4,5] = 120
+-- productoria [4,5] = 20
 
 -- 2D)
 factorial :: Int -> Int
@@ -56,6 +58,7 @@ factorial 0 = 1
 factorial x = x * factorial (x - 1)
 
 -- factorial 5 = 120
+-- factorial 3 = 6
 
 -- 2E)
 promedio :: [Int] -> Int
@@ -69,10 +72,16 @@ promedio x = div (sumatoria x) (length x)
 pertenece :: Int -> [Int] -> Bool
 pertenece x [] = False
 pertenece x (y : ys) | x == y = True | x /= y = pertenece x ys
---pertenece 3 [1,2,3,4] = True
---pertenece 5 [1,2,3,4] = False
+
+-- pertenece 3 [1,2,3,4] = True
+-- pertenece 5 [1,2,3,4] = False
 
 -- 4)
-paratodo' :: [a] -> (a->Bool) -> Bool
-p
+paratodo' :: Eq a => [a] -> (a -> Bool) -> Bool
+paratodo' [] f = False
+paratodo' (x : xs) f
+  | ((f x && paratodo' xs f) == True || xs == []) = True
+  | (f x && paratodo' xs f) /= True = False
 
+-- paratodo' [0] esCero = True
+-- paratodo' ['a'] esVocal = True
