@@ -1,7 +1,4 @@
 -- a
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-
-{-# HLINT ignore "Use null" #-}
 
 todosMenores10 :: [Int] -> Bool
 todosMenores10 xs

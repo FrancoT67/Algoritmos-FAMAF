@@ -1,8 +1,3 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-
-{-# HLINT ignore "Use odd" #-}
-{-# HLINT ignore "Use even" #-}
-{-# HLINT ignore "Use map" #-}
 
 -- primerosPares :: [Int] -> [Int]
 -- ejemplo : primerosPares [2,8,3,4] = [2,8]

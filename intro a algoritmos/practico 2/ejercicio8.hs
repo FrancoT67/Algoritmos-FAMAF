@@ -1,7 +1,5 @@
 --length
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-import Distribution.Simple.Setup (configureArgs)
-{-# HLINT ignore "Use foldr" #-}
+
 longitud :: [a] -> Integer
 longitud [] = 0 
 longitud (x:xs) = 1 + longitud xs 

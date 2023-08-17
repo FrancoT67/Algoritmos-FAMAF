@@ -1,6 +1,5 @@
 --a
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use null" #-}
+
 sumar1 :: Int -> [Int] -> [Int]
 
 sumar1 n xs | xs == [] =[] |xs /= []  = head xs+n : sumar1 n (tail xs)
