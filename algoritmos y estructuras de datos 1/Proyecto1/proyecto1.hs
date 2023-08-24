@@ -1,16 +1,21 @@
--- Ejercicios
+{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
+{-# HLINT ignore "Use foldr" #-}
+
+-- Ejercicios
 -- 1
 -- a) esCero :: Int -> Bool, que verifica si un entero es igual a 0.
+
 esCero :: Int -> Bool
-esCero x = (x == 0)
+esCero x = x == 0
 
 -- esCero 10 = False
 -- esCero 0 = True
 
 -- b) esPositivo :: Int -> Bool, que verifica si un entero es estrictamente mayor a 0.
 esPositivo :: Int -> Bool
-esPositivo x = (x > 0)
+esPositivo x = x > 0
 
 -- esPositivo 10 = True
 -- esPositivo -10 = False
@@ -34,11 +39,11 @@ valorAbsoluto n | n >= 0 = n | n < 0 = n * (-1)
 paraTodo :: [Bool] -> Bool
 paraTodo [] = True
 paraTodo (x : xs)
-  | x == True = paraTodo xs
-  | x /= True = False
+  | x = paraTodo xs
+  | not x = False
 
--- paraTodo [True,True,True,True]= True
--- paraTodo [True,True,False,True]= False
+-- paraTodo [True,True,True,True] = True
+-- paraTodo [True,True,False,True] = False
 
 -- b) sumatoria :: [Int] -> Int, que calcula la suma de todos los elementos de una lista de enteros.
 sumatoria :: [Int] -> Int
@@ -51,7 +56,7 @@ sumatoria (x : xs) = x + sumatoria xs
 -- c) productoria :: [Int] -> Int, que calcula el producto de todos los elementos de la lista de enteros.
 productoria :: [Int] -> Int
 productoria [] = 1
-productoria (x : xs) = x * productoria (xs)
+productoria (x : xs) = x * productoria xs
 
 -- productoria [1,2,3,4,5] = 120
 -- productoria [4,5] = 20
@@ -85,11 +90,9 @@ pertenece x (y : ys)
 -- 4)Programá las siguientes funciones que implementan los cuantificadores generales. Notá que el segundo parámetro de cada función, es otra función!
 
 -- a) paratodo’ :: [a] -> (a -> Bool) -> Bool, dada una lista xs de tipo [a] y un predicado t :: a -> Bool, determina si todos los elementos de xs satisfacen el predicado t.
-paratodo' :: Eq a => [a] -> (a -> Bool) -> Bool
+paratodo' :: [a] -> (a -> Bool) -> Bool
 paratodo' [] funcion = True
-paratodo' (x : xs) funcion
-  | funcion x = paratodo' xs funcion
-  | otherwise = False
+paratodo' (x : xs) funcion = funcion x && paratodo' xs funcion
 
 -- paratodo' [0] esCero = True
 -- paratodo' ['a'] esVocal = True
@@ -112,3 +115,45 @@ sumatoria' (x : xs) t = t x + sumatoria' xs t
 
 --  sumatoria' [1,2,3] factorial = 9
 --  sumatoria' [1,2,3] valorAbsoluto = 6
+
+-- d) productoria’ :: [a] -> (a -> Int) -> Int, dada una lista de xs de tipo [a] y una función t :: a -> Int, calcula el producto de los valores que resultan de la aplicación de t a los elementos de xs.
+productoria' :: [a] -> (a -> Int) -> Int
+productoria' [] t = 1
+productoria' (x : xs) t = t x * productoria' xs t
+
+--  productoria' [4,5] falctorial = 2880
+--  productoria' [1,2,3,4,5,6,7] valorAbsoluto = 5040
+
+-- 5. Definí nuevamente la función paratodo, pero esta vez usando la función paratodo' (Sin recursión, ni análisis por casos!).
+
+paratodo'' :: [Bool] -> Bool
+paratodo'' xs = paratodo' xs id
+
+-- paratodo'' [True, True] = True
+-- paratodo'' [True, False] = False
+
+-- 6. Utilizando las funciones del ejercicio 4, programá las siguientes funciones por composición, sin usar recursión ni análisis por casos.
+-- a) todosPares :: [Int] -> Bool verifica que todos los números de una lista sean pares.
+todosPares :: [Int] -> Bool
+todosPares xs = paratodo' xs even
+
+-- todosPares [1,2,3,4,5,6] = False
+-- todosPares [2,4,6] = True
+
+-- b) hayMultiplo :: Int -> [Int] -> Bool verifica si existe algún número dentro del segundo parámetro que sea múltiplo del primer parámetro.
+
+multiplo :: Int -> Int -> Bool
+multiplo n z = mod n z == 0
+
+hayMultiplo :: Int -> [Int] -> Bool
+hayMultiplo n xs = existe' xs (multiplo n)
+
+-- hayMultiplo 2 [1,2,3,4,5,6] = True
+-- hayMultiplo 7 [1,2,3,4,5,6] = False
+
+-- c) sumaCuadrados :: Int -> Int, dado un número no negativo n, calcula la suma de los primeros n cuadrados, es decir <∑ i : 0 ≤ i < n : i^2>.
+-- Ayuda: En Haskell se puede escribir la lista que contiene el rango de números entre n y m como [n..m].
+
+sumaCuadrados :: Int -> Int
+
+sumaCuadrados
