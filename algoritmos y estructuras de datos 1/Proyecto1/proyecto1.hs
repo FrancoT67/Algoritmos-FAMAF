@@ -3,6 +3,7 @@
 
 {-# HLINT ignore "Use foldr" #-}
 
+
 -- Ejercicios
 -- 1
 -- a) esCero :: Int -> Bool, que verifica si un entero es igual a 0.
@@ -186,9 +187,10 @@ esPrimo n = not (existeDivisor n [2 .. (n - 1)])
 -- f ) ¿Se te ocurre cómo redefinir factorial (ej. 2d) para evitar usar recursión?
 factorial' :: Int -> Int
 factorial' n = productoria [1 .. n]
-
--- factorial' 4 = 24
--- factorial' 5 = 120
+{-
+factorial' 4 = 24
+factorial' 5 = 120
+-}
 
 -- g) Programar la función multiplicaPrimos :: [Int] -> Int que calcula el producto de todos los números primos de una lista.
 primos :: Int -> Int
@@ -196,27 +198,131 @@ primos x | esPrimo x = x | not (esPrimo x) = 1
 
 multiplicaPrimos :: [Int] -> Int
 multiplicaPrimos m = productoria' m primos
-
--- multiplicaPrimos [1,2,3,4,5] = 30
--- multiplicaPrimos [1,2,3,4,5,6,7,8,9,10] = 210
+{-
+multiplicaPrimos [1,2,3,4,5] = 30
+multiplicaPrimos [1,2,3,4,5,6,7,8,9,10] = 210
+-}
 
 -- h) Programar la función esFib :: Int -> Bool, que dado un entero n, devuelve True si y sólo si n está en la sucesión de Fibonacci.
 -- Ayuda: Realizar una función auxiliar fib :: Int -> Int que dado un n devuelva el n-ésimo elemento de la sucesión.
 
 fib :: Int -> Int
 fib n
-  | n == 0 = 0
-  | n == 1 = 1
+  | n<0 = 0
+  | n>=0 && n<=2 = n
   | otherwise = fib (n - 1) + fib (n - 2)
 
-verifica :: Int -> Bool
-verifica n = pertenece n (fibonacciHasta n)
+
+verifica :: Int -> [Int]
+verifica 0 = []
+verifica n = verifica (n-1)++[fib n] 
 
 esFib :: Int -> Bool
--- esFib n = (fib (n - 1) + fib (n - 2)) == fib n
-esFib n = exis
+esFib n = existe' (verifica n) (==n)
+{-
+verifica 10 =[89,55,34,21,13,5,3,2,1]
+esFib 11= False
+esFib 8= True
+-}
 
-fibonacciHasta :: Int -> [Int]
-fibonacciHasta m = takeWhile (<= m) secuenciaFibonacci
-  where
-    secuenciaFibonacci = 0 : 1 : zipWith (+) secuenciaFibonacci (tail secuenciaFibonacci)
+
+--i) Utilizando la función del apartado anterior, definí la función todosFib :: [Int] -> Bool, que dada una lista xs de enteros, devuelva si todos los elementos de la lista pertenecen (o no) a la sucesión de Fibonacci.
+
+todosFib :: [Int] -> Bool
+todosFib []=True
+todosFib (x:xs) = esFib x && todosFib xs
+{-
+
+todosFib [8,5,3,2,1] = True
+todosFib [8,5,4,2,1] = False
+
+-}
+
+-- 7. Indagá en Hoogle sobre las funciones map y filter. También podes consultar su tipo en ghci con el comando :t
+-- ¿Qué hacen estas funciones?
+{- 
+La función map lo que hace es aplicar una función a cada elemento de una lista y retornar una lista con los resultados obtenidos de haber aplicado esa funci.
+-}
+-- ¿A qué equivale la expresión map succ [1, -4, 6, 2, -8], dde succ n = n+1?
+{-
+La expresión equivale a sumarle 1 a cada elemento de la lista [1, -4, 6, 2, -8], que podria ser: 
+suma1 :: [Int]-> [Int]
+suma1 []=[] 
+suma1 (x:xs)= [x+1]++suma1 xs 
+-}
+-- ¿Y la expresión filter esPositivo [1, -4, 6, 2, -8]?
+{-
+La expresion equivale a eliminar todos los elementos que son menores que 0
+-}
+
+--8. Programá una función que dada una lista de números xs, devuelve la lista que resulta de duplicar cada valor de xs.
+-- a) Definila usando recursión.
+duplica :: [Int]-> [Int]
+duplica []=[]
+duplica (x:xs) = (x*2):duplica xs
+{-Ejemplos de Funcionamiento:
+duplica [1, -4, 6, 2, -8] = [2,-8,12,4,-16]
+-}
+-- b) Definila utilizando la función map.
+duplica' :: [Int]-> [Int]
+duplica' n = map (*2) n
+--Ejemplos de Funcionamiento:
+--duplica' [1, -4, 6, 2, -8] = [2,-8,12,4,-16]
+
+
+-- 9. Programá una función que dada una lista de números xs, calcula una lista que tiene como elementos aquellos números de xs que son primos.
+
+-- a) Definila usando recursión.
+soloPrimos :: [Int] -> [Int]
+soloPrimos [] = []
+soloPrimos (x:xs) | esPrimo x = x:soloPrimos xs
+                  | not (esPrimo x) =[]++soloPrimos xs
+
+-- Ejemplos de ejecucion:
+{-
+soloPrimos [1,2,3,4,5,6,7,8,9] = [1,2,3,5,7]
+-}
+-- b) Definila utilizando la función filter.
+soloPrimos' :: [Int] -> [Int]
+soloPrimos' n = filter esPrimo n
+
+-- Ejemplos de ejecucion:
+{-
+soloPrimos' [1,2,3,4,5,6,7,8,9] = [1,2,3,5,7]
+-}
+
+-- c) Revisá tu definición del ejercicio 6g. ¿Cómo podes mejorarla?
+-- con la función creada en el ej 9a, sería :
+
+productoria'' :: [Int] -> Int
+productoria'' n = productoria (soloPrimos' n ) 
+
+-- Ejemplos de ejecucion:
+{-
+productoria'' [1,2,3,4,5,6,7,8,9] = 210
+-}
+
+
+-- 10. La función primIgualesA toma un valor y una lista, y calcula el tramo inicial más largo de la lista cuyos elementos son iguales a ese valor.
+-- a) Programá primIgualesA por recursión.
+primIgualesA :: Eq a => a -> [a] -> [a]
+primIgualesA n [] = []
+primIgualesA n (x:xs)| n == x = [x]++primIgualesA n xs 
+                     | x /= n = []
+
+{-
+primIgualesA 3 [3,4,3,4]= [3]
+primIgualesA 3 [4,3,3,4]= []
+primIgualesA 'a' "aaaAAA" = "aaa"
+primIgualesA 'a' "baaAAA" = ""
+-}
+-- b) Programá nuevamente la función utilizando takeWhile.
+primIgualesA' :: Eq a => a -> [a] -> [a]
+primIgualesA' n xs= takeWhile (==n) xs 
+
+{-
+primIgualesA' 3 [3,4,3,4]= [3]
+primIgualesA' 3 [4,3,3,4]= []
+primIgualesA' 'a' "aaaAAA" = "aaa"
+primIgualesA' 'a' "baaAAA" = ""
+-}
