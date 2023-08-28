@@ -326,3 +326,27 @@ primIgualesA' 3 [4,3,3,4]= []
 primIgualesA' 'a' "aaaAAA" = "aaa"
 primIgualesA' 'a' "baaAAA" = ""
 -}
+
+--11. La función primIguales toma una lista y devuelve el mayor tramo inicial de la lista cuyos elementos son todos iguales entre sí.
+
+-- a) Programá primIguales por recursión.
+
+primIguales :: Eq a => [a] -> [a]
+primIguales [] = []
+primIguales (x:y:xs) | x == y = [x]++[y]++primIguales xs | x /= y = x:[] 
+
+{-
+primIguales "aDaDa" = "a"
+primIguales "aaaDa" = "aaa"
+-}
+
+-- b) Usá cualquier versión de primIgualesA para programar primIguales. Está permitido dividir en casos, pero no usar recursión.
+
+primIguales' :: Eq a => [a] -> [a]
+primIguales' (x:xs) = primIgualesA' x (x:xs)
+
+{-
+primIguales' "aDaDa" = "a"
+primIguales' "aaaDa" = "aaa"
+-}
+
