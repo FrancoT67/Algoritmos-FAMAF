@@ -155,5 +155,68 @@ hayMultiplo n xs = existe' xs (multiplo n)
 -- Ayuda: En Haskell se puede escribir la lista que contiene el rango de números entre n y m como [n..m].
 
 sumaCuadrados :: Int -> Int
+sumaCuadrados n = sumatoria' [0 .. n] (^ 2)
 
-sumaCuadrados
+-- sumaCuadrados 3 = 14
+-- sumaCuadrados 6 = 91
+
+-- d) Programar la fución existeDivisor::Int-> [Int] -> Bool, que dado en entero N y una lista LS, devuelve True si y solo si, existe algún elemento en LS que divida a N.
+
+divisor :: Int -> Int -> Bool
+divisor n m = n `mod` m == 0
+
+existeDivisor :: Int -> [Int] -> Bool
+existeDivisor n ls = existe' ls (divisor n)
+
+-- existeDivisor 6 [1,2,3,4,5,6] =True
+-- existeDivisor 12 [1,2,3,4,5,6] = True
+
+-- e) Utilizando la función del apartado anterior, definí la función esPrimo:: Int -> Bool, que dado un entero n, devuelve True si y solo si n es primo.
+--  Ayuda: En Haskell se puede escribir la lista que contiene el rango de números entre n y m como [n..m].
+
+-- existeDivisor' :: Int -> [Int] -> Bool
+-- existeDivisor' n xs = paratodo' xs (divisor n)
+
+esPrimo :: Int -> Bool
+esPrimo n = not (existeDivisor n [2 .. (n - 1)])
+
+-- esPrimo 13 = True
+-- esPrimo 12 = False
+
+-- f ) ¿Se te ocurre cómo redefinir factorial (ej. 2d) para evitar usar recursión?
+factorial' :: Int -> Int
+factorial' n = productoria [1 .. n]
+
+-- factorial' 4 = 24
+-- factorial' 5 = 120
+
+-- g) Programar la función multiplicaPrimos :: [Int] -> Int que calcula el producto de todos los números primos de una lista.
+primos :: Int -> Int
+primos x | esPrimo x = x | not (esPrimo x) = 1
+
+multiplicaPrimos :: [Int] -> Int
+multiplicaPrimos m = productoria' m primos
+
+-- multiplicaPrimos [1,2,3,4,5] = 30
+-- multiplicaPrimos [1,2,3,4,5,6,7,8,9,10] = 210
+
+-- h) Programar la función esFib :: Int -> Bool, que dado un entero n, devuelve True si y sólo si n está en la sucesión de Fibonacci.
+-- Ayuda: Realizar una función auxiliar fib :: Int -> Int que dado un n devuelva el n-ésimo elemento de la sucesión.
+
+fib :: Int -> Int
+fib n
+  | n == 0 = 0
+  | n == 1 = 1
+  | otherwise = fib (n - 1) + fib (n - 2)
+
+verifica :: Int -> Bool
+verifica n = pertenece n (fibonacciHasta n)
+
+esFib :: Int -> Bool
+-- esFib n = (fib (n - 1) + fib (n - 2)) == fib n
+esFib n = exis
+
+fibonacciHasta :: Int -> [Int]
+fibonacciHasta m = takeWhile (<= m) secuenciaFibonacci
+  where
+    secuenciaFibonacci = 0 : 1 : zipWith (+) secuenciaFibonacci (tail secuenciaFibonacci)
