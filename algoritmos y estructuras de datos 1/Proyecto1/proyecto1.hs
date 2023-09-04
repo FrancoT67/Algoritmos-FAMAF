@@ -214,12 +214,12 @@ fib n
 
 
 verifica :: Int -> [Int]
-verifica 0 = []
+verifica 0 = 0:1:[]
 verifica n = verifica (n-1)++[fib n] 
 
 esFib :: Int -> Bool
--- esFib n = existe' (verifica n) (=n)
-esFib n = existe' [fib n] (==n)
+esFib n = existe' (verifica n) (==n)
+
 {-
 verifica 10 =[89,55,34,21,13,5,3,2,1]
 esFib 11= False
