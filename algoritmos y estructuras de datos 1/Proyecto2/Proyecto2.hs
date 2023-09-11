@@ -138,8 +138,11 @@ contar_futbolistas (x:xs) zona =case x of
 {- 
 e) ¿La función anterior usa filter? Si no es así, reprogramala para usarla.
 -}
+ 
+-- controlar verificarFutbolista y contar_futbolistas
 
 verificaFutbolista :: Deportista -> Bool
-verificaFutbolista
+verificaFutbolista x = x==(Futbolista z _ _ _)
+
 contar_futbolistas' :: [Deportista] -> Zona -> Int
-contar_futbolistas' deportista = filter (==Futbolista z _ _ _ ) deportista  
+contar_futbolistas' deportista = filter verificarFutbolista deportista  
