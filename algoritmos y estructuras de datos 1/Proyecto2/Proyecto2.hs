@@ -53,6 +53,7 @@ minimoElemento [-1,0,1] = -1
 b) Definir la función minimoElemento' de manera tal que el caso base de la recursión sea el de la lista vacía. Para ello revisar la clase Bounded.
 Ayuda: Para probar esta función dentro de ghci con listas vacías, indicar el tipo concreto con tipos de la clase Bounded, por ejemplo: ([1,5,10]::[Int]), ([]::[Bool]), etc. -}
 minimoElemento' :: (Bounded a, Ord a) => [a] -> a
-minimoElemento' = foldr min maxBound
+minimoElemento'[] = maxBound
+minimoElemento' (x:xs) = min (minimoElemento' xs)
 
 -- Falla ⬆️⬆️⬆️
