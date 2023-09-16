@@ -1,13 +1,12 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-
-{-# HLINT ignore "Use camelCase" #-}
-{-# HLINT ignore "Use foldr" #-}
-{-# HLINT ignore "Eta reduce" #-}
-{-# HLINT ignore "Use newtype instead of data" #-}
-
 -- 2) Ejercicios:
 -- 1. Tipos Enumerados
 -- a)Implementá el tipo de Carrera como está definido.
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
+{-# HLINT ignore "Use foldr" #-}
+{-# HLINT ignore "Eta reduce" #-}
+{-# HLINT ignore "Use camelCase" #-}
+{-# HLINT ignore "Use newtype instead of data" #-}
 
 data Carrera = Matematica | Fisica | Computación | Astronomia
 
@@ -165,10 +164,10 @@ data NotaMusical = Nota (NotaBasica, Alteracion) deriving (Eq, Show, Ord)
 -- d) Definí la funcíon sonidoCromatico :: NotaMusical -> Int que devuelve el sonido de una nota, incrementando en uno su valor si tiene la alteracion Sostenido, decrementando en uno si tiene la alteración Bemol y dejando su valor intacto si la alteracion es Natural.
 
 sonidoCromatico :: NotaMusical -> Int
-sonidoCromatico (Nota (x, alt)) = case (x, alt) of
-  (_, Bemol) -> sonidoNatural x - 1
-  (_, Sostenido) -> sonidoNatural x + 1
-  (_, Natural) -> sonidoNatural x
+sonidoCromatico (Nota (nota, alt)) = case (nota, alt) of
+  (_, Bemol) -> sonidoNatural nota - 1
+  (_, Sostenido) -> sonidoNatural nota + 1
+  (_, Natural) -> sonidoNatural nota
 
 -- sonidoCromatico (Nota (Re, Bemol)) = 1
 -- sonidoCromatico (Nota (Re, Sostenido)) = 3
@@ -196,11 +195,37 @@ primerElemento x = Just (head x)
 -- primerElemento [] = Nothing
 
 -- 7. Tipos recursivos
-data Cola = VaciaC | Encolada Deportista Cola
+data Cola = VaciaC | Encolada Deportista Cola deriving (Show)
 
--- a)Programá las siguientes funciones:
+-- A)Programá las siguientes funciones:
 -- 1) atender::Cola -> Maybe Cola, que elimina a la persona que esta en la primer posicion de una cola, por haber sido atendida. Si la cola está vacía, entonces devuleve Nothing.
 atender :: Cola -> Maybe Cola
 atender VaciaC = Nothing
+atender (Encolada deportista cola) = Just cola
 
--- atender (x : xs) = atender xs
+p = Encolada (Futbolista Arco 10 Derecha 100) (Encolada (Ciclista Pista) (Encolada Ajedrecista (Encolada Ajedrecista VaciaC)))
+
+p' = Encolada Ajedrecista (Encolada (Ciclista Pista) (Encolada (Futbolista Arco 10 Derecha 100) (Encolada Ajedrecista VaciaC)))
+
+-- atender p = Just (Encolada (Ciclista Pista) (Encolada Ajedrecista VaciaC))
+
+-- 2) encolar :: Deportista -> Cola -> Cola, que agrega una persona a una colade deportistas, en la última posición
+encolar :: Deportista -> Cola -> Cola
+encolar deporAgregar VaciaC = VaciaC
+encolar deporAgregar (Encolada depor cola) = Encolada deporAgregar (Encolada depor cola)
+
+--  encolar (Ciclista BMX) p = Encolada (Ciclista BMX) (Encolada Ajedrecista (Encolada (Ciclista Pista) (Encolada Ajedrecista VaciaC)))
+--  encolar (Ciclista BMX) VaciaC = VaciaC
+
+-- 3)busca :: Cola -> Zona -> Maybe Deportista, que devuelve el/la primera futbolista dentro de la cola que juega en la zona que se corresponde con el segundo parámetro. Si no hay futbolistas jugando en esa zona devuelve Nothing.
+
+busca :: Cola -> Zona -> Maybe Deportista
+busca VaciaC zona = Nothing
+busca (Encolada dpt cola) zona = case dpt of
+  Futbolista zona _ _ _ -> Just dpt
+  _ -> busca cola zona
+
+-- busca p Arco = Just (Futbolista Arco 10 Derecha 100)
+-- busca p' Arco = Just (Futbolista Arco 10 Derecha 100)
+
+-- B)¿A qué otro tipo se parece cola? Se parece al tipo [a] xq de forma implicita esta generado una lista de Deportistas
