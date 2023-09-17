@@ -112,9 +112,8 @@ data Deportista
 
 contar_velocistas :: [Deportista] -> Int
 contar_velocistas [] = 0
-contar_velocistas (x : xs) = case x of
-  Velocista _ -> 1 + contar_velocistas xs
-  _ -> 0 + contar_velocistas xs
+contar_velocistas (Velocista _ : xs) = 1 + contar_velocistas xs
+contar_velocistas (_ : xs) = contar_velocistas xs
 
 -- contar_velocistas [(Ciclista Pista),(Velocista 2)] = 1
 -- contar_velocistas [(Velocista 1),(Velocista 2)] = 2
@@ -123,9 +122,15 @@ contar_velocistas (x : xs) = case x of
 
 contar_futbolistas :: [Deportista] -> Zona -> Int
 contar_futbolistas [] zona = 0
-contar_futbolistas (x : xs) zona = case x of
-  Futbolista zona _ _ _ -> 1 + contar_futbolistas xs zona
-  _ -> 0 + contar_futbolistas xs zona
+contar_futbolistas ((Futbolista Arco _ _ _) : xs) Arco = 1 + contar_futbolistas xs Arco
+contar_futbolistas ((Futbolista Defensa _ _ _) : xs) Defensa = 1 + contar_futbolistas xs Defensa
+contar_futbolistas ((Futbolista Mediocampo _ _ _) : xs) Mediocampo = 1 + contar_futbolistas xs Mediocampo
+contar_futbolistas ((Futbolista Delantera _ _ _) : xs) Delantera = 1 + contar_futbolistas xs Delantera
+contar_futbolistas (_ : xs) zona = contar_futbolistas xs zona
+
+-- contar_futbolistas (x : xs) zona = case x of
+--   Futbolista zona _ _ _ -> 1 + contar_futbolistas xs zona
+--   _ -> 0 + contar_futbolistas xs zona
 
 -- contar_futbolistas  [(Ciclista Pista),Futbolista Arco 1 Derecha 10] Arco = 1
 -- contar_futbolistas  [(Ciclista Pista),Velocista 2] Arco = 0
@@ -229,3 +234,71 @@ busca (Encolada dpt cola) zona = case dpt of
 -- busca p' Arco = Just (Futbolista Arco 10 Derecha 100)
 
 -- B)¿A qué otro tipo se parece cola? Se parece al tipo [a] xq de forma implicita esta generado una lista de Deportistas
+
+-- 8. Tipos recursivos y polimórficos
+
+-- a) ¿Cómo se debe instanciar el tipo ListaAsoc para representar la información almacenada en una guia telefónica?
+
+data ListaAsoc a b = Vacia | Nodo a b (ListaAsoc a b) deriving (Show)
+
+type Guia = ListaAsoc String Int
+
+-- b) Programar las sig Funciones:
+-- 1) la_long :: ListaAsoc a b -> Int que devuelve la cantidad de datos en una lista
+la_long :: ListaAsoc a b -> Int
+la_long Vacia = 0
+la_long (Nodo x y lista) = 1 + la_long lista
+
+--  la_long (Nodo 'a' 1 (Nodo 'b' 2 Vacia)) = 2
+--  la_long (Nodo (Ajedrecista) 1 (Nodo (Ciclista BMX) 2 Vacia)) = 2
+
+-- 2) la_concat :: ListaAsoc a b -> ListaAsoc a b -> ListaAsoc a b, que devuelve la concatenacion de dos listas de asociaciones
+nodoEjemplo1 = Nodo Ajedrecista 2 (Nodo (Ciclista Pista) 2 Vacia)
+
+nodoEjemplo2 = Nodo (Futbolista Arco 10 Izquierda 100) 1 (Nodo (Ciclista BMX) 2 Vacia)
+
+la_concat :: ListaAsoc a b -> ListaAsoc a b -> ListaAsoc a b
+la_concat x Vacia = x
+la_concat Vacia x = x
+la_concat (Nodo dato1 dato2 lista) (Nodo dato1' dato2' lista') = Nodo dato1 dato2 (la_concat lista (Nodo dato1' dato2' lista'))
+
+-- la_concat  nodoEjemplo3 nodoEjemplo3 = Nodo 'a' 1 (Nodo 'b' 3 (Nodo 'c' 4 (Nodo 'a' 1 (Nodo 'b' 3 (Nodo 'c' 4 Vacia)))))
+-- la_concat  nodoEjemplo1 nodoEjemplo1 = Nodo Ajedrecista 2 (Nodo (Ciclista Pista) 2 (Nodo Ajedrecista 2 (Nodo (Ciclista Pista) 2 Vacia)))
+
+-- 3) la_agregar :: Eq a=> ListaAsoc a b -> a -> b -> ListaAsoc a b, que agrega un nodo a la lista de asociaciones si la clave no está en la lista, o actualiza el valor si la clave ya se encontraba.
+nodoEjemplo3 = Nodo 'a' 1 (Nodo 'b' 3 (Nodo 'c' 4 Vacia))
+
+la_agregar :: Eq a => ListaAsoc a b -> a -> b -> ListaAsoc a b
+la_agregar Vacia dato1 dato2 = Nodo dato1 dato2 Vacia
+la_agregar (Nodo dato1 dato2 lista) dato3 dato4
+  | dato1 == dato3 = Nodo dato1 dato4 lista
+  | dato1 /= dato3 = Nodo dato1 dato2 (la_agregar lista dato3 dato4)
+
+-- la_agregar nodoEjemplo3 'r' 4 = Nodo 'a' 1 (Nodo 'b' 3 (Nodo 'c' 4 (Nodo 'r' 4 Vacia)))
+-- la_agregar nodoEjemplo3 'b' 4 = Nodo 'a' 1 (Nodo 'b' 4 (Nodo 'c' 4 Vacia))
+
+-- 4) la_pares :: ListaAsoc a b -> [(a, b)] que transforma una lista de asociaciones en una lista de pares clave-dato.
+la_pares :: ListaAsoc a b -> [(a, b)]
+la_pares Vacia = []
+la_pares (Nodo x z Vacia) = [(x, z)]
+la_pares (Nodo x z c) = (x, z) : la_pares c
+
+-- la_pares nodoEjemplo3 = [('a',1),('b',3),('c',4)]
+-- la_pares nodoEjemplo1 = [(Ajedrecista,2),(Ciclista Pista,2)]
+-- la_pares Vacia = []
+
+-- 5) la_busca :: Eq a => ListaAsoc a b -> a -> Maybe b que dada una lista y una clave devuelve el dato asociado, si es que existe. En caso contrario devuelve Nothing.
+la_busca :: Eq a => ListaAsoc a b -> a -> Maybe b
+la_busca Vacia _ = Nothing
+la_busca (Nodo x z c) d | x == d = Just z | otherwise = la_busca c d
+
+-- la_busca nodoEjemplo3 'e' = Nothing
+-- la_busca nodoEjemplo3 'c' = Just 4
+
+-- 6) la_borrar :: Eq a=> a -> ListaAsoc a b -> ListaAsoc a b que dada una clave a elimina la entrada en la lista.
+la_borrar :: Eq a => a -> ListaAsoc a b -> ListaAsoc a b
+la_borrar _ Vacia = Vacia
+la_borrar buscaDato (Nodo dato1 dato2 lista) | buscaDato == dato1 = lista | otherwise = Nodo dato1 dato2 (la_borrar buscaDato lista)
+
+-- la_borrar 'c' nodoEjemplo3 = Nodo 'a' 1 (Nodo 'b' 3 Vacia)
+-- la_borrar 'z' nodoEjemplo3 = Nodo 'a' 1 (Nodo 'b' 3 (Nodo 'c' 4 Vacia))
