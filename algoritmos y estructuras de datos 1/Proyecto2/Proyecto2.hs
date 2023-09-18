@@ -59,6 +59,7 @@ minimoElemento (x : xs) = min x (minimoElemento xs)
 
 -- minimoElemento [-2,1,-3,-4] = -4
 -- minimoElemento [-1,0,1] = -1
+
 -- b) Definir la función minimoElemento' de manera tal que el caso base de la recursión sea el de la lista vacía. Para ello revisar la clase Bounded.
 -- Ayuda: Para probar esta función dentro de ghci con listas vacías, indicar el tipo concreto con tipos de la clase Bounded, por ejemplo: ([1,5,10]::[Int]), ([]::[Bool]), etc.
 
@@ -85,7 +86,7 @@ type Altura = Int -- Sinonimo de Tipo
 
 type NumCamiseta = Int -- Sinonimo de Tipo
 
-data Zona = Arco | Defensa | Mediocampo | Delantera deriving (Show, Eq) -- Tipos algebráicos sin parámetros ( aka enumerados)
+data Zona = Arco | Defensa | Mediocampo | Delantera deriving (Show) -- Tipos algebráicos sin parámetros ( aka enumerados)
 
 data TipoReves = DosManos | UnaMano deriving (Show) -- Tipos algebráicos sin parámetros ( aka enumerados)
 
@@ -138,7 +139,10 @@ contar_futbolistas (_ : xs) zona = contar_futbolistas xs zona
 -- e) ¿La función anterior usa filter? Si no es así, reprogramala para usarla.
 
 verificarFutbolista :: Zona -> Deportista -> Bool
-verificarFutbolista z (Futbolista zona _ _ _) = zona == z
+verificarFutbolista z (Futbolista Arco _ _ _) = True
+verificarFutbolista z (Futbolista Defensa _ _ _) = True
+verificarFutbolista z (Futbolista Mediocampo _ _ _) = True
+verificarFutbolista z (Futbolista Delantera _ _ _) = True
 verificarFutbolista _ _ = False
 
 contar_futbolistas' :: [Deportista] -> Zona -> Int
