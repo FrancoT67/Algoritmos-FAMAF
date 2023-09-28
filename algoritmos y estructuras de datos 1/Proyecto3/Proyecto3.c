@@ -21,7 +21,7 @@ int comparacionYconXporZ(int a,int b,int c){
 /* 2. Debugging con GDB*/
 
 /*
-(x => 1, y => , z => , b => , w => )
+(x => 1, y => algo , z => algo , b =>algo , w => )
 */
 char* verificarMultiplo4(int a){
     if ((a%4 == 0) == 1){
