@@ -58,7 +58,7 @@ int main(){
     printf("Ingrese 1(True) o 0(False): ");
     scanf("%d",&boolExpresion);
     printf("%d\n",B2(x,i,boolExpresion));
-/*
+
     // Instansiacion de Variables y llamado a la funcion B1 con valores predefinidos.
     printf("****************** Ejercicio 5.B3) ******************\n\n");
     x=0;
@@ -66,7 +66,7 @@ int main(){
     printf("Programa 1 con X=%d, Y=%d %d\n\n",10,9,B1(10,9));
     printf("Programa 1 con X=%d, Y=%d %d\n\n",9,8,B1(9,8));
     printf("Programa 1 con X=%d, Y=%d %d\n\n",8,7,B1(8,7));
-    //La funcion B1 lo que hace es buscar los multiplos del numerox 
+    //La funcion B1 lo que hace es buscar los multiplos del número x  
     printf("***************** Fin Programa 1 *******************\n\n");
     
     x=0;
@@ -76,6 +76,6 @@ int main(){
     printf("Programa 2 con X=%d, y Res en True.\n\n",B2(8,3,1));
     //La funcion B2 lo que hace es verificar si el número ingresado es Impar.
     printf("***************** Fin Programa 2 *******************\n\n");
-    */
+    
     return 0;
 }
