@@ -3,6 +3,8 @@
 
 /*
 Encontrar los valores para las variables para que las siguientes expresiones tengan el resultado indicado.
+
+(x → 0, y → 0, z →0, b → 0, w→0 )
 -----------------------------------------
 | Expresion                      | Valor |
 -----------------------------------------

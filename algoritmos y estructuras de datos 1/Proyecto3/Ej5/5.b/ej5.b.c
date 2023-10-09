@@ -4,27 +4,42 @@
 
 
 /* Cuadro 1
+
 σ 0: (x → 13, y → 3 ,i → 0 ) 
+    i := 0
+    do (x ≥ y) →
+        x := x − y
+        i := i + 1
+        [σ 0.1, σ 1.1, σ 2.1, σ 3.1]
+    od
 
 σ 1: (x → 10, y → 3 ,i → 1 )
-luego de iter. 1 
+    Luego de iter. 1 
 σ 2: (x → 4, y → 3 ,i → 2 ) ,
-luego de iter. 2
+    Luego de iter. 2
 σ 3: (x → 7, y → 3 ,i → 3 ) 
-luego de iter. 3
+    Luego de iter. 3
 σ 4: (x → 1, y → 3 ,i → 4 ) 
-luego de iter. 4
+    Luego de iter. 4
 
+*/
 
 /* Cuadro 2
-σ 0: (x → 5,i → 2 ,res → true ) , 
+σ 0: (x → 5,i → 0 ,res → False   ) , 
+    i := 2
+    res := T rue
+    do (i < x ∧ res) →
+        res := res ∧ (mod(x, i) 6 = 0)
+        i := i + 1
+        [σ 0.1, σ 1.1, σ 2.1 ]
+    od
 
-σ 1:(x→5, i→3, res→ True)
-luego de iter. 1 
-σ 2 : (x → 5 ,i → 3,res → True ) ,
-luego de iter. 2
-σ 3 : (x → 5 ,i → 4  ,res → True ) 
-luego de iter. 3
+σ 1:(x → 5, i → 2, res → True)
+    Luego de iter. 1 
+σ 2 : (x → 5 ,i → 3, res → True ) ,
+    Luego de iter. 2
+σ 3 : (x → 5, i → 4, res → True ) 
+    Luego de iter. 3
 */
 
 
@@ -44,20 +59,18 @@ int ejercicio1(int valorX, int valorY)
 }
 int ejercicio2(int valorX, int valorI, int res)
 {
-    if (res < 0 || res > 1)
-    {
+    if (res < 0 || res > 1){
         printf("valor Incorrecto, se definira a Res como 1(True).\n");
     }
-    valorI = 2;
     res = 1;
+    valorI = 2;
     while (valorI < valorX && res)
     {
         res = res && ((valorX % valorI) != 0);
         if (res == 1)
         {
             printf(" El valor de X es :%d \n El valor de boolExpresion es: True\n El valor de I es: %d\n *** En la iteracion n°(I): %d ***\n", valorX, valorI, (valorI - 1));
-            valorI = valorI + 1;
-            continue;
+            valorI = valorI +1;
         }
         else
         {

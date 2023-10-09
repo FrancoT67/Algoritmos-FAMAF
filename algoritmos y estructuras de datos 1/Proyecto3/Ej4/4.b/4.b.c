@@ -1,8 +1,15 @@
 #include <stdio.h>
 
 /*
-σ0 :(x → 5 , y → 4, z → 8, m → 0) 
-σ1 :(x → 5 , y → 4, z → 8, m → 4) 
+σ0 :(x → 5 , y → 4, z → 8, m → 0)
+    var x,y,z,m:Int;
+    if (x < y) → m := x
+    (x ≥ y)    → m := y
+    fi 
+σ1 :(x → 5 , y → 4, z → 8, m → 4)
+    if (m < z) → skip
+    (m ≥ z)    → m := z
+    fi
 σ2 :(x → 5 , y → 4, z → 8, m → 4) 
 */
 
