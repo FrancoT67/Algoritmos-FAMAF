@@ -1,18 +1,47 @@
 #include <stdio.h>
 
-// Inclision de Biblioteca necesaria para el tipo Bool.
+
+// Inclusion de Biblioteca necesaria para el tipo Bool.
 #include <stdbool.h>
 
-int main()
-{
-    // Declaracion e inicializacion del valor booleano a true.
-    bool variable = true;
-    int x = 0;
+/* Prototipos */
+bool pedirBooleano(char name);
+void imprimeBool(char name,bool x);
 
-    printf("Ingrese true o false:");
-    scanf("%d", &x);
-    variable = x;
-    printf("%d", variable);
 
+int main(){
+    char texto='t';
+    printf("Ingrese una letra: ");
+    scanf("%c", &texto);
+
+    imprimeBool(texto,pedirBooleano(texto));
     return 0;
+}
+
+
+/* Definición de Pedir Booleano */
+bool pedirBooleano(char name)
+{
+    int x=0;
+    printf("Ingrese 1 para True o 0 para False para agregar en la variable %c:\n",name);
+    scanf("%d", &x);
+    if (x>1){
+        printf("Ingresaste un valor mayor a 1. \nEntonces se definio como 1 la opcion que elegiste.\n");
+        x=1;
+    }else if(x<0){
+        printf("Ingresaste un valor menor a 0. \nEntonces se definio como 0 la opcion que elegiste.\n");
+        x=0;
+
+    }
+    return x;
+}
+
+/* Definición de Imprime Booleano */
+void imprimeBool(char name, bool x){
+    if(x==1){
+        printf("%c: verdadero\n\n",name);
+    }else{
+        printf("%c: falso\n\n",name);
+
+    }
 }

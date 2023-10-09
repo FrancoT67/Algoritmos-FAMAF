@@ -8,7 +8,7 @@
                 "-Wall",
                 "-Wextra",
                 "-std=c99",
-                "${file}",
+                "${file} ../6.a/entradasInt.h ",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
