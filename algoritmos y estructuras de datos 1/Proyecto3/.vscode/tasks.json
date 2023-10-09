@@ -5,8 +5,9 @@
             "label": "C/C++: gcc.exe compilar archivo activo",
             "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
+                "-Wall",
+                "-Wextra",
+                "-std=c99",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
