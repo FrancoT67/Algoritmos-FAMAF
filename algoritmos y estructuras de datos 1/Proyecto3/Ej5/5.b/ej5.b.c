@@ -1,6 +1,36 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+
+
+/* Cuadro 1
+σ 0: (x → 13, y → 3 ,i → 0 ) 
+
+σ 1: (x → 10, y → 3 ,i → 1 )
+luego de iter. 1 
+σ 2: (x → 4, y → 3 ,i → 2 ) ,
+luego de iter. 2
+σ 3: (x → 7, y → 3 ,i → 3 ) 
+luego de iter. 3
+σ 4: (x → 1, y → 3 ,i → 4 ) 
+luego de iter. 4
+
+
+/* Cuadro 2
+σ 0: (x → 5,i → 2 ,res → true ) , 
+
+σ 1:(x→5, i→3, res→ True)
+luego de iter. 1 
+σ 2 : (x → 5 ,i → 3,res → True ) ,
+luego de iter. 2
+σ 3 : (x → 5 ,i → 4  ,res → True ) 
+luego de iter. 3
+*/
+
+
+
+
+
 int ejercicio1(int valorX, int valorY)
 {
     int i = 0;

@@ -1,5 +1,22 @@
 #include <stdio.h>
 
+/*
+programa          | usuario ingresa un σ 0 |  produce una salida σ |
+1.a ejecución 1   |                        |                       |
+1.a ejecución 2   |                        |                       |
+1.a ejecución 3   |                        |                       |
+1.b ejecución 1   |                        |                       |
+1.b ejecución 2   |                        |                       |
+1.b ejecución 3   |                        |                       |
+1.c ejecución 1   |                        |                       |
+1.c ejecución 2   |                        |                       |
+1.c ejecución 3   |                        |                       |
+
+
+*/
+
+
+
 int main(){
     /*Inicializacion de Variables*/
     int x=0;

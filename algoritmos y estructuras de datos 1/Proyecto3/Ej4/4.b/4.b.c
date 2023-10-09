@@ -1,7 +1,13 @@
 #include <stdio.h>
 
-int main()
-{
+/*
+σ0 :(x → 5 , y → 4, z → 8, m → 0) 
+σ1 :(x → 5 , y → 4, z → 8, m → 4) 
+σ2 :(x → 5 , y → 4, z → 8, m → 4) 
+*/
+
+
+int main(){
 
     // Instanciacion de Variables.
     int x = 0;
@@ -24,8 +30,8 @@ int main()
     if (x < y)
     {
         m = x;
-    }
-    else
+
+    }else
     {
         m = y;
     }
@@ -34,8 +40,8 @@ int main()
     {
         m = m;
         z = z;
-    }
-    else
+        
+    }else
     {
         z = m;
     }
