@@ -31,14 +31,20 @@ void pedir_arreglo(int n_max, int a[]){
         imprimeTexto("No se puede crear un arreglo de tamaño cero o  negativo");
         assert(n_max>0);
     }
-    int a[n_max];
+    for(int i=0;i<n_max;i++){
+     printf("Ingrese el valor para a[%d]",i);
+     scanf("%d",&a[i]);
+     }
 }
 
 //Defincion del Prototipo imprimir_arreglo.
 void imprimir_arreglo(int n_max, int a[]){
-    for (int i = 0; i < n_max; i++)
-    {
-        printf("El valor del arreglo en la posición %d es : %d\n",i,a[i]);
+    printf("El arreglo ingresado es:[");
+    for (int i = 0; i < n_max; i++){
+        if(i==(n_max-1)){
+         printf("%d]",a[i]);
+         }
+        printf("%d,",a[i]);
     }
     
 }
