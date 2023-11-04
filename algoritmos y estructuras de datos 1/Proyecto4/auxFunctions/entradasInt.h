@@ -2,7 +2,6 @@
 int pedirEntero(char name);
 void imprimeEntero(char name, int x);
 
-
 // Funciones ya definidas.
 int pedirEntero(char name)
 {

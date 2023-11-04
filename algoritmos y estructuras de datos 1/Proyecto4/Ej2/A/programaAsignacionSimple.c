@@ -19,6 +19,7 @@ int main(){
     y=pedirEntero('y');
     z=pedirEntero('z');
     
+    //Instanciacion de Variables Auxiliares.
     int xaux=x; 
     int yaux=y;
     int zaux=z;

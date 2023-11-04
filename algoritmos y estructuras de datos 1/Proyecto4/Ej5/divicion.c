@@ -7,43 +7,51 @@
 #include "../auxFunctions/entradasInt.h"
 #include "../auxFunctions/imprimeTexto.h"
 
-//Definciion del Struct div_t.
-struct div_t {
+// Definciion del Struct div_t.
+struct div_t
+{
     int cociente;
     int resto;
 };
 
-//Prototipo de la funcion que recrea el algoritmo de la division.
+// Prototipo de la funcion que recrea el algoritmo de la division.
 struct div_t division(int x, int y);
 int main()
 {
-    int x=0;
-    int y=0;
-    x=pedirEntero('x');
-    y=pedirEntero('y');
-    if (y==0){
+    // Instanciacion de Variables.
+    int x = 0;
+    int y = 0;
+
+    // Solicitud de los Valores al usuario.
+    x = pedirEntero('x');
+    y = pedirEntero('y');
+
+    // Validacion del divisor.
+    if (y == 0)
+    {
         imprimeTexto("No se puede dividir por cero.");
-        assert(y!=0);
+        assert(y != 0);
     }
-    int cocienteResultado=division(x,y).cociente;
-    //int division(x,y).resto=;
-    printf("Los resuldatos de la division entre %d y %d: \nEl cociente es: %d\nEl resto es: %d",x,y,cocienteResultado,division(x,y).resto);
+
+    printf("Los resuldatos de la division entre %d y %d: \nEl cociente es: %d\nEl resto es: %d", x, y, division(x, y).cociente, division(x, y).resto);
 
     return 0;
 }
 
-//Funcion que hace la Division
-struct div_t division(int x, int y){
-    
+// Funcion que hace la Division
+struct div_t division(int x, int y)
+{
+
     struct div_t resultado;
-    int z=0;
-    
-    while (x>=y){
-        x=x-y;
-        z+=1;
+    int contadorCociente = 0;
+
+    while (x >= y)
+    {
+        x = x - y;
+        contadorCociente += 1;
     }
-    resultado.cociente=z;
-    resultado.resto=x;
+    resultado.cociente = contadorCociente;
+    resultado.resto = x;
 
     return resultado;
 };
