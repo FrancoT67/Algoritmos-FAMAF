@@ -58,7 +58,7 @@ void pedir_arregloFloat(int n_max, float a[])
 
     for (int i = 0; i < n_max; ++i)
     {
-        printf("Ingrese un valor para a[%f]:", i);
+        printf("Ingrese un valor para a[%d]:", i);
         scanf("%f", &a[i]);
     }
 }
