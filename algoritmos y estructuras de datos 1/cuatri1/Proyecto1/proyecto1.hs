@@ -169,7 +169,7 @@ todosPares [2,4,6] = True
 -- b) hayMultiplo :: Int -> [Int] -> Bool verifica si existe algún número dentro del segundo parámetro que sea múltiplo del primer parámetro.
 
 multiplo :: Int -> Int -> Bool
-multiplo n z = mod n z == 0
+multiplo n z = mod z n == 0
 
 hayMultiplo :: Int -> [Int] -> Bool
 hayMultiplo n xs = existe' xs (multiplo n)
