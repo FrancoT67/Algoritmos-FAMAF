@@ -25,6 +25,7 @@ esPositivo x = x >= 0
 -- c)  esVocal :: Char -> Bool, verifica si un caracter es una vocal en minúscula.
 esVocal :: Char -> Bool
 esVocal x = elem x "aeiou" || elem x "AEIOU"
+--esVocal x | x == "a" = True
 
 {-
 Ejemplos de ejecucion:
@@ -209,3 +210,40 @@ hayMultiplo 2 [1,4,5] --> True
 hayMultiplo 1 [1,4,5] --> True
 hayMultiplo 3 [1,4,5] --> False
 -}
+
+--C) sumaCuadrados :: Int -> Int, dado un n ́umero no negativo n, calcula la suma de los primeros n cuadrados, es decir 〈∑i : 0 ≤i < n : i2〉
+
+sumaCuadrados :: Int -> Int 
+sumaCuadrados x = sumatoria' [0..(x-1)] (^2)
+
+{-
+Ejemplos de ejecucion:
+sumaCuadrados 4 --> 14
+sumaCuadrados 5 --> 30
+-}
+
+--D)Programar la fuci ́on existeDivisor::Int-> [Int] -> Bool, que dado en entero n y una lista ls , devuelve True si y solo si, existe alg ́un elemento en ls que divida a n.
+divide :: Int -> Int -> Bool
+divide n m = mod n m == 0
+existeDivisor::Int->[Int]->Bool
+existeDivisor n ls = existe' ls (divide n)
+{-
+Ejemplos de ejecucion:
+existeDivisor 3 [6,4] --> False
+existeDivisor 3 [3,4] --> True
+
+-}
+
+--E) Utilizando la funci ́on del apartado anterior, defin ́ı la funci ́on esPrimo:: Int -> Bool, que dado un entero n, devuelve True si y solo si n es primo
+esPrimo :: Int -> Bool
+esPrimo n = not(existeDivisor n [2..(n-1)]) && n/=1
+{-
+Ejemplos de ejecucion:
+esPrimo 1 --> False
+esPrimo 2 --> True
+esPrimo 3 --> True
+esPrimo 4 --> False
+esPrimo 1 --> True
+esPrimo 1 --> False
+-}
+
