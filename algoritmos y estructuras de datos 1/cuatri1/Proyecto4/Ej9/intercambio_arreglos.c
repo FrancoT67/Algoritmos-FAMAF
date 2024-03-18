@@ -66,7 +66,7 @@ void intercambiar(int tam, int a[], int i, int j)
     int arregloValorIAux = 0;
     int arregloValorJAux = 0;
 
-    // validacion de que los valores de las posiciones ingresados no sean mayores que el tamaño del arreglo.
+    // Validacion de que los valores de las posiciones ingresados no sean mayores que el tamaño del arreglo.
     assert(tam > i && tam > j);
 
     // Guardado de los Valores originales de las posiciones ingresadas.
