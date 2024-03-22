@@ -25,7 +25,8 @@ esPositivo x = x >= 0
 -- c)  esVocal :: Char -> Bool, verifica si un caracter es una vocal en minúscula.
 esVocal :: Char -> Bool
 esVocal x = elem x "aeiou" || elem x "AEIOU"
---esVocal x | x == "a" = True
+
+-- esVocal x | x == "a" = True
 
 {-
 Ejemplos de ejecucion:
@@ -211,10 +212,10 @@ hayMultiplo 1 [1,4,5] --> True
 hayMultiplo 3 [1,4,5] --> False
 -}
 
---C) sumaCuadrados :: Int -> Int, dado un n ́umero no negativo n, calcula la suma de los primeros n cuadrados, es decir 〈∑i : 0 ≤i < n : i2〉
+-- C) sumaCuadrados :: Int -> Int, dado un n ́umero no negativo n, calcula la suma de los primeros n cuadrados, es decir 〈∑i : 0 ≤i < n : i2〉
 
-sumaCuadrados :: Int -> Int 
-sumaCuadrados x = sumatoria' [0..(x-1)] (^2)
+sumaCuadrados :: Int -> Int
+sumaCuadrados x = sumatoria' [0 .. (x - 1)] (^ 2)
 
 {-
 Ejemplos de ejecucion:
@@ -222,11 +223,13 @@ sumaCuadrados 4 --> 14
 sumaCuadrados 5 --> 30
 -}
 
---D)Programar la fuci ́on existeDivisor::Int-> [Int] -> Bool, que dado en entero n y una lista ls , devuelve True si y solo si, existe alg ́un elemento en ls que divida a n.
+-- D)Programar la fuci ́on existeDivisor::Int-> [Int] -> Bool, que dado en entero n y una lista ls , devuelve True si y solo si, existe alg ́un elemento en ls que divida a n.
 divide :: Int -> Int -> Bool
 divide n m = mod n m == 0
-existeDivisor::Int->[Int]->Bool
+
+existeDivisor :: Int -> [Int] -> Bool
 existeDivisor n ls = existe' ls (divide n)
+
 {-
 Ejemplos de ejecucion:
 existeDivisor 3 [6,4] --> False
@@ -234,9 +237,10 @@ existeDivisor 3 [3,4] --> True
 
 -}
 
---E) Utilizando la funci ́on del apartado anterior, defin ́ı la funci ́on esPrimo:: Int -> Bool, que dado un entero n, devuelve True si y solo si n es primo
+-- E) Utilizando la funci ́on del apartado anterior, defin ́ı la funci ́on esPrimo:: Int -> Bool, que dado un entero n, devuelve True si y solo si n es primo
 esPrimo :: Int -> Bool
-esPrimo n = not(existeDivisor n [2..(n-1)]) && n/=1
+esPrimo n = not (existeDivisor n [2 .. (n - 1)]) && n /= 1 && n /= 0
+
 {-
 Ejemplos de ejecucion:
 esPrimo 1 --> False
@@ -246,4 +250,172 @@ esPrimo 4 --> False
 esPrimo 1 --> True
 esPrimo 1 --> False
 -}
+-- f ) ¿Se te ocurre cómo redefinir factorial (ej. 2d) para evitar usar recursión?
+factorial' :: Int -> Int
+factorial' n = productoria [1 .. n]
 
+{-
+factorial' 4 = 24
+factorial' 5 = 120
+-}
+
+-- g) Programar la función multiplicaPrimos :: [Int] -> Int que calcula el producto de todos los números primos de una lista.
+primos :: Int -> Int
+primos x | esPrimo x = x | not (esPrimo x) = 1
+
+multiplicaPrimos :: [Int] -> Int
+multiplicaPrimos m = productoria' m primos
+
+{-
+multiplicaPrimos [1,2,3,4,5] = 30
+multiplicaPrimos [1,2,3,4,5,6,7,8,9,10] = 210
+-}
+
+-- h) Programar la función esFib :: Int -> Bool, que dado un entero n, devuelve True si y sólo si n está en la sucesión de Fibonacci.
+-- Ayuda: Realizar una función auxiliar fib :: Int -> Int que dado un n devuelva el n-ésimo elemento de la sucesión.
+
+fib :: Int -> Int
+fib n
+  | n < 0 = 0
+  | n >= 0 && n <= 2 = n
+  | otherwise = fib (n - 1) + fib (n - 2)
+
+verifica :: Int -> [Int]
+verifica 0 = [0, 1]
+verifica n = verifica (n - 1) ++ [fib n]
+
+esFib :: Int -> Bool
+esFib n = existe' (verifica n) (== n)
+
+{-
+verifica 10 =[89,55,34,21,13,5,3,2,1]
+esFib 11= False
+esFib 8= True
+-}
+
+-- i) Utilizando la función del apartado anterior, definí la función todosFib :: [Int] -> Bool, que dada una lista xs de enteros, devuelva si todos los elementos de la lista pertenecen (o no) a la sucesión de Fibonacci.
+
+todosFib :: [Int] -> Bool
+todosFib [] = True
+todosFib (x : xs) = esFib x && todosFib xs
+
+{-
+todosFib [8,5,3,2,1] = True
+todosFib [8,5,4,2,1] = False
+-}
+
+-- 7. Indagá en Hoogle sobre las funciones map y filter. También podes consultar su tipo en ghci con el comando :t
+-- ¿Qué hacen estas funciones?
+{-
+La función map lo que hace es aplicar una función a cada elemento de una lista y retornar una lista con los resultados obtenidos de haber aplicado dicha función.
+-}
+-- ¿A qué equivale la expresión map succ [1, -4, 6, 2, -8], dde succ n = n+1?
+{-
+La expresión equivale a sumarle 1 a cada elemento de la lista [1, -4, 6, 2, -8].
+-}
+-- ¿Y la expresión filter esPositivo [1, -4, 6, 2, -8]?
+{-
+La expresion equivale a eliminar todos los elementos que son menores que 0
+-}
+
+-- 8. Programá una función que dada una lista de números xs, devuelve la lista que resulta de duplicar cada valor de xs.
+
+-- a) Definila usando recursión.
+duplica :: [Int] -> [Int]
+duplica [] = []
+duplica (x : xs) = (x * 2) : duplica xs
+
+{-
+duplica [1, -4, 6, 2, -8] = [2,-8,12,4,-16]
+duplica [2, -5, 7, 3, -9] = [4,-10,14,6,-18]
+-}
+
+-- b) Definila utilizando la función map.
+duplica' :: [Int] -> [Int]
+duplica' n = map (* 2) n
+
+{-
+duplica' [1, -4, 6, 2, -8] = [2,-8,12,4,-16]
+duplica' [2, -5, 7, 3, -9] = [4,-10,14,6,-18]
+-}
+
+-- 9. Programá una función que dada una lista de números xs, calcula una lista que tiene como elementos aquellos números de xs que son primos.
+
+-- a) Definila usando recursión.
+soloPrimos :: [Int] -> [Int]
+soloPrimos [] = []
+soloPrimos (x : xs)
+  | esPrimo x = x : soloPrimos xs
+  | not (esPrimo x) = soloPrimos xs
+
+{-
+soloPrimos [1,2,3,4,5,6,7,8,9] = [1,2,3,5,7]
+soloPrimos [2,5,7,8,21] = [2,5,7]
+-}
+-- b) Definila utilizando la función filter.
+soloPrimos' :: [Int] -> [Int]
+soloPrimos' n = filter esPrimo n
+
+{-
+soloPrimos' [1,2,3,4,5,6,7,8,9] = [1,2,3,5,7]
+soloPrimos' [2,5,7,8,21] = [2,5,7]
+-}
+
+-- c) Revisá tu definición del ejercicio 6g. ¿Cómo podes mejorarla?
+
+-- Se la puede mejorar usando la función creada en el ej 9a, ésta sería :
+productoria'' :: [Int] -> Int
+productoria'' n = productoria (soloPrimos' n)
+
+{-
+productoria'' [1,2,3,4,5,6,7,8,9] = 210
+productoria'' [7,8,9] = 7
+-}
+
+-- 10. La función primIgualesA toma un valor y una lista, y calcula el tramo inicial más largo de la lista cuyos elementos son iguales a ese valor.
+
+-- a) Programá primIgualesA por recursión.
+primIgualesA :: (Eq a) => a -> [a] -> [a]
+primIgualesA n [] = []
+primIgualesA n (x : xs)
+  | n == x = x : primIgualesA n xs
+  | x /= n = []
+
+{-
+primIgualesA 3 [3,4,3,4]= [3]
+primIgualesA 3 [4,3,3,4]= []
+primIgualesA 'a' "aaaAAA" = "aaa"
+primIgualesA 'a' "baaAAA" = ""
+-}
+
+-- b) Programá nuevamente la función utilizando takeWhile.
+primIgualesA' :: (Eq a) => a -> [a] -> [a]
+primIgualesA' n xs = takeWhile (== n) xs
+
+{-
+primIgualesA' 3 [3,4,3,4]= [3]
+primIgualesA' 3 [4,3,3,4]= []
+primIgualesA' 'a' "aaaAAA" = "aaa"
+primIgualesA' 'a' "baaAAA" = ""
+-}
+
+-- 11. La función primIguales toma una lista y devuelve el mayor tramo inicial de la lista cuyos elementos son todos iguales entre sí.
+
+-- a) Programá primIguales por recursión.
+primIguales :: (Eq a) => [a] -> [a]
+primIguales [] = []
+primIguales (x : y : xs) | x == y = [x] ++ [y] ++ primIguales xs | x /= y = [x]
+
+{-
+primIguales "aDaDa" = "a"
+primIguales "aaaDa" = "aaa"
+-}
+
+-- b) Usá cualquier versión de primIgualesA para programar primIguales. Está permitido dividir en casos, pero no usar recursión.
+primIguales' :: (Eq a) => [a] -> [a]
+primIguales' (x : xs) = primIgualesA' x (x : xs)
+
+{-
+primIguales' "aDaDa" = "a"
+primIguales' "aaaDa" = "aaa"
+-}
