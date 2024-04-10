@@ -1,12 +1,7 @@
 -- 2) Ejercicios:
 -- 1. Tipos Enumerados
 -- a)Implementá el tipo de Carrera como está definido.
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
-{-# HLINT ignore "Use foldr" #-}
-{-# HLINT ignore "Eta reduce" #-}
-{-# HLINT ignore "Use camelCase" #-}
-{-# HLINT ignore "Use newtype instead of data" #-}
 
 data Carrera = Matematica | Fisica | Computación | Astronomia
 
@@ -20,15 +15,7 @@ titulo Computación = "Licenciatura en Computación"
 titulo Astronomia = "Licenciatura en Astronomia"
 
 -- c) Para escribir musica se utiliza la denominada notacion musical, la cual consta de notas (do,re,mi, ...). Además estas notas pueden presentar algún modificador como sostenido o bemol,definir el tipo NotaBasica cons constructores Do,Re, Mi, Fa, Sol, La y Si.
-data NotaBasica
-  = Do
-  | Re
-  | Mi
-  | Fa
-  | Sol
-  | La
-  | Si
-  deriving (Eq, Ord, Show, Bounded, Enum)
+data NotaBasica = Do| Re| Mi| Fa| Sol| La| Si deriving (Eq, Ord, Show, Bounded, Enum)
 
 -- d) EL sistemade notacion musical anglosajon, tambien conocido como notacion o cifrado americado, relaciona las notas basicas con letras de la A a la G. Este sistema se usa por ejemplo para las tablaturas de guitarra.
 -- Programar usando Pattern Matching la funcion: cifradoAmericano :: NotaBasica -> Char
@@ -46,11 +33,6 @@ cifradoAmericano Si = 'B'
 
 -- 3 . Polimorfismo AD HOC Recordemos la función sumatoria del proyecto anterior:
 
--- sumatoria :: [Int] −> Int
--- sumatoria [] = 0
--- sumatoria ( x:xs ) = x + sumatoria xs
-
--- como solo funciona para los Int, se la abstrae a la forma sumatoria :: [a]->a pero como no tiene los operadors ni propiedades de los numeros, se le agrega Num a=> para definir las propiedades de los numeros al que estamos usando para la abstracción, entoces la función quedaría: sumatoria : : Num a => [ a ] −> a.
 -- a) Definir usando polimorfismo ad hoc la función minimoElemento que calcula (de manera recursiva) cúal es el menor valor de una lista de tipo [a]. Asegurarse que sólo esté definida para listas no vacías.
 
 minimoElemento :: (Ord a) => [a] -> a
