@@ -1,9 +1,8 @@
 #include <stdio.h>
 
-/* Definicion de Prototipos. */
+/* Intenciacion de Prototipos. */
 void imprimeHola(void);
 void imprimeChau(void);
-
 
 int main()
 {
@@ -12,12 +11,15 @@ int main()
     return 0;
 }
 
-void imprimeHola(void){
+/* Definicion de los prototipos. */
+void imprimeHola(void)
+{
     printf("Hola\n");
     printf("Hola\n");
 }
 
-void imprimeChau(void){
+void imprimeChau(void)
+{
     printf("Chau\n");
     printf("Chau\n");
 }

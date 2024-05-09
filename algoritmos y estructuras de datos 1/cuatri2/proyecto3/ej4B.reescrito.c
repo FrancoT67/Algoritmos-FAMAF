@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /* Libreria personal para mostrar datos */
-#include "../6.a/entradasInt.h"
+#include "./entradasInt.h"
 
 /* Reescritura del Ejericicio 4.B con funciones. */
 int main()

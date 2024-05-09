@@ -1,30 +1,31 @@
 #include <stdio.h>
-#include "6.a/entradasInt.h"
+#include "./entradasInt.h"
 /*
     Se define antes del main para indicar al compilador que existe una función llamada pedirEntero que será utilizada más adelante en el código.
     Esta técnica se llama declaración anticipada o prototipo de función, para que el compilador sepa qué tipo de datos devuelve la función y qué tipo de argumentos espera antes de que la función sea realmente definida más adelante en el código.
  */
 
-// Prototipo de las funciones a definir.
+/* Prototipo de las funciones a definir.*/
 int pedirEntero(char name);
 void imprimeEntero(char name, int x);
 
 int main(void)
 {
-    // Instanciacion de Variables
+    /*Inicializacion de Variables*/
     int pideEntero = 0;
     char texto = 't';
 
+    /* Ingreso de valores a las variables */
     printf("Ingrese una letra: ");
     scanf("%c", &texto);
 
-    // Llamado a las funciones.
+    /* Llamado a las funciones. */
     pideEntero = pedirEntero(texto);
     imprimeEntero(texto, pideEntero);
     return 0;
 }
 
-// Funciones ya definidas.
+/* Defincion de los Prototipos */
 int pedirEntero(char name)
 {
     int n = 0;

@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-// Inclusion de Biblioteca necesaria para el tipo Bool.
+/* Inclusion de Biblioteca necesaria para el tipo Bool. */
 #include <stdbool.h>
 
-/* Prototipos */
+/* Defincion de Prototipos */
 bool pedirBooleano(char name);
 void imprimeBool(char name,bool x);
 

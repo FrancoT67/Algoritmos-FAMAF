@@ -1,15 +1,18 @@
 #include <stdio.h>
 
-// Inclusion de Biblioteca necesaria para el tipo Bool.
+/* Inclusion de Biblioteca necesaria para el tipo Bool.*/
 #include <stdbool.h>
 
-/* Prototipos */
+/* Instanciacion de Prototipos */
 bool pedirBooleano(char name);
 void imprimeBool(char name, bool x);
 
 int main()
 {
+    /*Inicializacion de Variables*/
     char texto = 't';
+
+    /* Ingreso de valores a las variables */
     printf("Ingrese una letra: ");
     scanf("%c", &texto);
 
@@ -20,7 +23,10 @@ int main()
 /* Definición de Pedir Booleano */
 bool pedirBooleano(char name)
 {
+    /*Inicializacion de Variables*/
     int x = 0;
+
+    /* Ingreso de valores a las variables */
     printf("Ingrese 1 para True o 0 para False para agregar en la variable %c:\n", name);
     scanf("%d", &x);
     if (x > 1)
