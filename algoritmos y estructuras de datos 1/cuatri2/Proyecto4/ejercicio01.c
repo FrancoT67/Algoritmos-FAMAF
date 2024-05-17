@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <assert.h>
 
+// Inclusion de Libreria propia
+#include "./funcionesAux.h"
+
 // Firma del prototipo hola_hasta
 void hola_hasta(int n);
 
@@ -41,11 +44,10 @@ Ingrese un numero para repetir la palabra 'Hola':16
 
 int main()
 {
-    int veces = 0;
-    printf("Ingrese un numero entero positivo para repetir la palabra 'Hola':");
-    scanf("%d", &veces);
-    assert(veces > 0);
-    hola_hasta(veces);
+    int n = 0;
+    n = pedirEntero('n');
+    assert(n > 0);
+    hola_hasta(n);
 
     return 0;
 }
