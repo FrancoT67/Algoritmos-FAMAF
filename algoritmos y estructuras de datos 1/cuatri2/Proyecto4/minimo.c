@@ -21,19 +21,23 @@ int minimo(int num1, int num2);
 
 int main()
 {
-    int x, y = 0;
+    int x, y, res = 0;
     printf("A continuacion ingresara 2 valores, evite que ambos sean el mismo.\n");
     x = pedirEntero('x');
     y = pedirEntero('y');
-    // Comprobacion de que no sean el mismo valor sino el programa no tiene nada que calcular.
-    assert(x != y);
-    printf("El menor entre %d y %d es: %d", x, y, minimo(x, y));
+    res = minimo(x, y);
+    assert(res <= x || res <= y);
+    printf("El menor entre %d y %d es: %d", x, y, res);
     return 0;
 }
 
 // Definicion de la funcion minimo
 int minimo(int num1, int num2)
 {
+    if (num1 == num2)
+    {
+        return num2;
+    }
 
     if (num1 < num2)
     {

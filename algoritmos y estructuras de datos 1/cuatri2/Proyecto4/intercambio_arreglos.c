@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#define tamañoArreglo 5
 // Auxiliares generales.
 #include "./funcionesAux.h"
 // Auxiliares de arreglos.
@@ -7,8 +8,6 @@
 /**
  * Ejemplo de Ejecucion:
  *  .\intercamC.exe
-    Ingrese un valor positivo entero para T que sera el tamano del arreglo.
-    Ingrese un valor entero para la variable T:5
     Ingrese un valor para la posicion 0:1
     Ingrese un valor para la posicion 1:2
     Ingrese un valor para la posicion 2:3
@@ -26,19 +25,14 @@ void intercambiar(int tam, int a[], int i, int j);
 int main()
 {
     int pos1, pos2, tamaño = 0;
-    printf("Ingrese un valor positivo entero para T que sera el tamano del arreglo.\n");
-    tamaño = pedirEntero('T');
-    assert(tamaño > 0);
+    tamaño = tamañoArreglo;
     int arreglo[tamaño];
     pedir_arreglo(tamaño, arreglo);
     imprimir_arreglo(tamaño, arreglo);
     printf("ingrese un valor entre 0 y %d para intercambiar en el arreglo\n", tamaño - 1);
     printf("Posicion:");
     pos1 = pedirEntero('1');
-    assert(pos1 >= 0 && pos1 < tamaño);
-
     pos2 = pedirEntero('2');
-    assert(pos2 >= 0 && pos2 < tamaño && pos1 != pos2);
     intercambiar(tamaño, arreglo, pos1, pos2);
     printf("Luego de intercambiar los valores de las posiciones %d y %d\n", pos1, pos2);
     imprimir_arreglo(tamaño, arreglo);
@@ -49,7 +43,7 @@ int main()
 void intercambiar(int tam, int a[], int i, int j)
 {
     int valorOriginalSinModificar = 0;
-    assert(tam > 0);
+    assert(i >= 0 && i < tam && j >= 0 && j < tam && i != j);
     valorOriginalSinModificar = a[i];
     a[i] = a[j];
     a[j] = valorOriginalSinModificar;

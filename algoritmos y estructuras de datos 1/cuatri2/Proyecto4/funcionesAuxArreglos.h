@@ -20,7 +20,7 @@ void pedir_arreglo(int n_max, int a[])
 void imprimir_arreglo(int n_max, int a[])
 {
 
-    printf("El arreglo generado es: [");
+    printf("[");
     int i = 0;
     while (i < (n_max - 1))
     {

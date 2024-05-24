@@ -4,6 +4,23 @@
 #include <stdbool.h>
 
 // INICIO Funciones definidas para Int.
+
+// Definicion de la funcion minimo
+int minimo(int num1, int num2)
+{
+    if (num1 == num2)
+    {
+        return num2;
+    }
+
+    if (num1 < num2)
+    {
+        return num1;
+    }
+
+    return num2;
+}
+
 int pedirEntero(char name)
 {
     int n = 0;
