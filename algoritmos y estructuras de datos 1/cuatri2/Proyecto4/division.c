@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <assert.h>
 #include "./funcionesAux.h"
 
 struct div_t
@@ -24,12 +23,22 @@ int main()
     num1 = pedirEntero('A');
     printf("Ingrese un valor positivo para el divisor y DISTINTO de 0.\n");
     num2 = pedirEntero('B');
+    if (num1 < 0 || num2 < 0)
+    {
+        while (num2 < 0 && num1 < 0)
+        {
+            printf("Los valores deben ser POSITIVOS.\nIngrese nuevamente los valores:\n");
+            num1 = pedirEntero('A');
+            num2 = pedirEntero('B');
+        }
+    }
+
     if (num2 == 0)
     {
         while (num2 == 0)
         {
-            printf("El cociente debe ser DISTINTO de 0\nIngrese nuevamente un valor:");
-            num2 = pedirEntero('2');
+            printf("El cociente debe ser DISTINTO de 0\nIngrese nuevamente un valor:\n");
+            num2 = pedirEntero('B');
         }
     }
 
