@@ -102,7 +102,7 @@ ghci> iguales [11, 2, 5, 8]
 False
 -}
 
-{- LABORATORIO 4: A partir de las expresiones en el ejercicio 7 -}
+{- LABORATORIO 4: A partir de las expresiones en el ejercicio 7 (el 7d no se hace, avisaron por aula virtual) -}
 
 -- a) Identifica las variables libres de cada expresion y el tipo de cada una.
 -- 7A: Variable libre es N y su tipo es Number
@@ -112,6 +112,22 @@ False
 -- b) Definı funciones que tomen como argumento las variables libres identificadas y devuelvan el resultado de la expresion. Atencion: Tene en cuenta que en algunos casos es necesario definir varias funciones.
 -- 7A:
 factorial' :: Int -> Int
-factorial' = factorial
+factorial' n = factorial n
 
--- c) Evalua las funciones tomando como argumento los valores se ̃nalados en el ejercicio 8.
+--7B:
+promedio' :: [Int] -> Int
+promedio' xs = promedio xs
+
+--7C:
+maximos ::[Int]->Int
+maximos [x] = x
+maximos (x : xs) = x `max` (maximos xs)
+
+minimos :: [Int] -> Int
+minimos [x] = x
+minimos (x : xs) =  x `min` (minimos xs)
+
+expresion7C::[Int] -> [Int]-> Bool
+expresion7C xs ys = (maximos xs) < (minimos ys)
+
+-- c) Evalua las funciones tomando como argumento los valores señalados en el ejercicio 8.
