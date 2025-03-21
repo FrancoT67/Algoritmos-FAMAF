@@ -113,5 +113,39 @@ False
 -- 7A:
 factorial' :: Int -> Int
 factorial' = factorial
+-- 7B:
+promedio' :: [Int] -> Int
+promedio' xs = promedio xs
+
+--7C:
+
+buscaMaximos::[Int]->Int
+buscaMaximos [] = 0
+buscaMaximos (x:y:xs) | x>=y=buscaMaximos (x:xs) 
+                      | otherwise = buscaMaximos (y:xs)
+
+
+buscaMinimo::[Int]->Int
+buscaMinimo [] = 0
+buscaMinimo (x:y:xs) | x<=y=buscaMinimo (x:xs) 
+                     | otherwise = buscaMinimo (y:xs)
+
+maximos::[Int] -> [Int] -> Bool
+maximos [] _ = True
+maximos xs ys =  buscaMaximos xs < buscaMinimo ys
+
+
+-- 7D:
+
+verifica ::Int -> Int -> Bool
+verifica n m | n==m=False 
+             | otherwise = True
+
+buscaProducto :: Int -> Int -> Int
+buscaProducto prod n | verifica prod n &&  n `mod` prod == 0 = prod 
+                     | otherwise = buscaProducto (prod+1) n 
+
+--buscaFactores :: Int -> Bool
+--buscaFactores n = buscaProducto 2 n 
 
 -- c) Evalua las funciones tomando como argumento los valores se ̃nalados en el ejercicio 8.
