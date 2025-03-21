@@ -66,3 +66,18 @@ int main(void)
     return 0;
 }
 
+/**
+ * Ejercicio 3
+Dada la siguiente estructura
+struct stonks {
+int sube;
+int baja;
+};
+programar la función
+struct stonks stonks_master(int tam, int a[]);
+que dado un tamaño de arreglo tam y un arreglo a[] devuelve una estructura struct
+stonks, donde en el campo sube contará la cantidad de veces que a[i] <= a[i+1] para i en el
+rango 0 <= i < tam-1, de manera análoga baja contará la cantidad de veces que a[i] > a[i+1]
+para el mismo rango.
+
+*/
