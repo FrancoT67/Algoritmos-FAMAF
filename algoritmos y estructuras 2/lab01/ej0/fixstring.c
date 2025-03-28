@@ -26,7 +26,7 @@ bool fstring_eq(fixstring s1, fixstring s2)
 
     if (long_s1 == long_s2)
     {
-        for (int i = 0; i < long_s1; i++)
+        for (unsigned int i = 0; i < long_s1; i++)
         {
             res = s1[i] == s2[i];
         }
@@ -42,8 +42,14 @@ bool fstring_eq(fixstring s1, fixstring s2)
 bool fstring_less_eq(fixstring s1, fixstring s2)
 {
     bool res = true;
-    int tam1 = fstring_length(s1);
-    int tam2 = fstring_length(s2);
-
+    unsigned int i = 0;
+    unsigned int tam1 = fstring_length(s1);
+    unsigned int tam2 = fstring_length(s2);
+    while (res && i < tam1 && i < tam2)
+    {
+        res = s1[i] <= s2[i] && res;
+        i++;
+    }
+    res = s1[i] <= s2[i] && res;
     return res;
 }
