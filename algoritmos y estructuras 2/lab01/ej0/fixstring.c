@@ -1,4 +1,5 @@
 #include <stdbool.h>
+
 #include <assert.h>
 
 #include "fixstring.h"
@@ -45,11 +46,24 @@ bool fstring_less_eq(fixstring s1, fixstring s2)
     unsigned int i = 0;
     unsigned int tam1 = fstring_length(s1);
     unsigned int tam2 = fstring_length(s2);
-    while (res && i < tam1 && i < tam2)
+
+    while (i < tam1 && i < tam2 && res && s1[i] == s2[i])
     {
-        res = s1[i] <= s2[i] && res;
+        // por la guarda s1[i] == s2[i] busco la posicion donde s1[i] != s2[i].
         i++;
     }
-    res = s1[i] <= s2[i] && res;
+
+    if (i < tam1 && i < tam2)
+    {
+        // Comparo donde s1 != s2 teniendo ya la posicion de ambos por el while anterior
+        res = s1[i] < s2[i];
+    }
+    else if (tam1 != tam2)
+    {
+        // si el tamaño de s1 es menor a s2 entonces ya la palabra s1 es menor a la palabra s2.
+        res = tam1 < tam2;
+    }
+
+    // si son iguales, res sigue valiendo true
     return res;
 }
