@@ -5,3 +5,4 @@
 *.list
 *.img
 memory_map.txt
+.gdb_history
