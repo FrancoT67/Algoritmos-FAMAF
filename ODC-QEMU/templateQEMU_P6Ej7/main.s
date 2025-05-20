@@ -1,4 +1,6 @@
 .data
+array:
+.dword 0x64, 0xc8, 0x12c
 f:
 .dword 1
 g:
@@ -125,15 +127,32 @@ b)
     se asignan en los registros X0, X1, X2 y X3 respectivamente, y que la dirección base de
     los arreglos A y B se almacenan en los registros X6 y X7 respectivamente.
     */
+
     ldr X0, f // X0 = 1
     ldr X1, g // X1 = 2
     ldr X2, i // X2 = 4
     ldr X3, j // X3 = 5
+    ldr X6, =array
 
 /*
 5.2) ¿Cuántos registros se utilizan para llevar a cabo las operaciones anteriores?
+    R: Un total de 9 registros.
  */
 
 end:
 infloop:
     b infloop
+
+/* Solucion chatGPT:
+    // f = -g - A[4]
+        sub X9, XZR, X1 // X9 = -g
+        ldur X10, [X6, #32]// X10 = A[4]
+        sub X0, X9, X10 // X0 = -g - A[4]
+    // B[8] = A[i - j]
+        sub X9, X2, X3 // X9 = i - j
+        lsl X9, X9, #3      // X9 = (i - j) * 8
+        add X9, X6, X9      // X9 = &A[i - j]
+        ldur X10, [X9, #0]  // X10 = A[i - j]
+        add X11, X7, #64    // X11 = &B[8]
+        stur X10, [X11, #0] // B[8] = A[i - j]
+*/
