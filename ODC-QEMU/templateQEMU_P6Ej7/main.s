@@ -1,20 +1,28 @@
 .data
-array:.dword 0x64, 0xc8, 0x12c
-f:.dword 2
-g:.dword 2
-h:.dword 3
-i:.dword 4
-j:.dword 5
+array:
+.dword 0x64, 0xc8, 0x12c
+f:
+.dword 1
+g:
+.dword 2
+h:
+.dword 3
+i:
+.dword 4
+j:
+.dword 5
 
-f3:.dword 4
-j3:.dword 5
+f3:
+.dword 4
+j3:
+.dword 5
 .text
 //1.a)
     ldr X0, f
     ldr X1, g
     ldr X2, h
     ldr X3, i
-    ldr X4, j 
+    ldr X4, j
     add X0, X1, X2
     add X0, X0, X3
     add X0, X0, X4
@@ -124,14 +132,11 @@ b)
     ldr X1, g // X1 = 2
     ldr X2, i // X2 = 4
     ldr X3, j // X3 = 5
-  
 
 /*
 5.2) ¿Cuántos registros se utilizan para llevar a cabo las operaciones anteriores?
-    R: Un total de 9 registros.
  */
 
 end:
 infloop:
     b infloop
-
