@@ -1,0 +1,31 @@
+{
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "Hack Nerd Font Mono",
+  "editor.formatOnSave": true,
+  "terminal.integrated.fontFamily": "Hack Nerd Font Mono",
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.settings.applyToAllProfiles": [
+    
+  ],
+  "workbench.colorCustomizations": {},
+  "git.suggestSmartCommit": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.minimap.enabled": false,
+  "window.newWindowProfile": "Predeterminado",
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "update.showReleaseNotes": false,
+  "files.associations": {
+    "*.s": "arm"
+  }
+}
