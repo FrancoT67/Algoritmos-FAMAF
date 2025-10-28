@@ -1,6 +1,8 @@
 .data
 array:
 .dword 0x64, 0xc8, 0x12c
+contenido_x0:
+.dword 0xA
 f:
 .dword 1
 g:
@@ -17,6 +19,18 @@ f3:
 j3:
 .dword 5
 .text
+
+//template - start
+    // ldr X6, =Array
+    // ldr X0, contenido_X0
+//template - end
+ldr x9, 0x55555555
+ldr x10, 0x12345678
+ldr x12, 0x00000000AAAAAAAA
+ldr x13, 0x1234567812345678
+lsl x11,x10,#4
+and x13,x11,#0xFFF
+
 //1.a)
     ldr X0, f
     ldr X1, g
@@ -38,6 +52,12 @@ j3:
     ldr X2, h
     add X0, X1, X2
     add X0, X0, X0
+
+    ldr X0, f
+    ldr X1, g
+    ldr X2, h
+    add X0, X0, #1
+    add X0, X1, X2
 
 /*Luego, dadas las siguientes sentencias en assembler LEGv8:
 a)  ADD X0, X1, X2
@@ -119,7 +139,7 @@ b)
 | SUB  X0, X1, X2  | 1  | 2  |  2 |  0  |     0     |     1     |    2      |
  */
 
-    /*
+    /*exit
     Ej5:
         a) f = -g - A[4];
         b) B[8] = A[i - j];
@@ -136,6 +156,7 @@ b)
 /*
 5.2) ¿Cuántos registros se utilizan para llevar a cabo las operaciones anteriores?
  */
+
 
 end:
 infloop:
