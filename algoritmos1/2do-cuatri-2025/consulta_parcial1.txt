@@ -1,0 +1,283 @@
+================================================================================
+f : [Int] -> Int
+f.xs = < Sum i: 0 <= i < #xs : (i+1) * xs!i >
+
+Por inducción en xs:
+
+caso base xs = []:
+f.[] = < Sum i: 0 <= i < #[] : (i+1) * []!i >
+     = { def #, lógica}
+     = < Sum i: False : (i+1) * []!i >
+     = { rango vacío }
+     = 0
+
+caso inductivo xs = z:zs (bien, nos damos cuenta de distribuir):
+asumimos f.zs = <Sum i: 0 <= i < #zs : (i+1) * zs!i>
+f.(z:zs) = < Sum i: 0 <= i < #(z:zs) : (i+1) * (z:zs)!i >
+         = { def #, lógica }
+         = < Sum i: 0 = i : (i+1) * (z:zs)!i > + ...
+         = { rango unitario }
+         = 1 * (z:zs)!0 + ...
+         = { aritmética }
+         = z + < Sum i: 1 <= i < 1 + #zs : (i+1) * (z:zs)!i >
+         = { cambio de variable, lógica }
+         = z + < Sum i: 0 <= i < #zs : (i+1+1) * (z:zs)!(i+1) >
+         = { def de !}
+         = z + < Sum i: 0 <= i < #zs : ((i+1)+1) * zs!i >
+         = { aritmética }
+         = z + < Sum i: 0 <= i  < #zs : (i+1) * zs!i + 1 * zs!i>
+         = { regla del término }
+         = z + < Sum i: 0 <= i < #zs : (i+1) * zs!i> + <Sum i: 0 <= i < #zs : 1 * zs!i >
+         = { HI y def de sum }
+         = z + f.zs + sum.zs
+
+----------------------------------------
+f.[]     = 0                 (1)
+f.(z:zs) = z + f.zs + sum.zs (2)
+----------------------------------------
+
+caso inductivo de nuevo (no tan bien, generalizamos):
+f.(z:zs) = < Sum i: 0 <= i < #(z:zs) : (i+1) * (z:zs)!i >
+         = { def #, lógica }
+         = < Sum i: 0 = i : (i+1) * (z:zs)!i > + ...
+         = { rango unitario }
+         = 1 * (z:zs)!0 + ...
+         = { aritmética }
+         = z + < Sum i: 1 <= i < 1 + #zs : (i+1) * (z:zs)!i >
+         = { cambio de variable, lógica }
+         = z + < Sum i: 0 <= i < #zs : (i+2) * (z:zs)!(i+1) >
+         = { def de ! }
+         = z + < Sum i: 0 <= i < #zs : (i+2) * zs!i >
+
+propongo fgen.k.xs = < Sum i: 0 <= i < #xs : (i+k) * xs!i >
+
+f.xs = fgen.k.xs
+{ especificaciones de f y fgen }
+< Sum i: 0 <= i < #xs : (i+1) * xs!i > = < Sum i: 0 <= i < #xs : (i+k) * xs!i >
+{ claramente las 2 expresiones son equivalentes sii k = 1 }
+luego 
+f.xs = fgen.1.xs
+
+caso base xs = []:
+fgen.k.[] = < Sum i: 0 <= i < #[] : (i+k) * []!i >
+          = { def #, lógica}
+          = < Sum i: False : (i+k) * []!i >
+          = { rango vacío }
+          = 0
+
+caso inductivo xs = z:zs
+asumimos fgen.j.zs = < Sum i: 0 <= i < #zs : (i+j) * zs!i > vale para todo j
+fgen.k.(z:zs) = < Sum i: 0 <= i < #(z:zs) : (i+k) * (z:zs)!i >
+              = { def #, lógica }
+              = <Sum i: 0 = i : (i+k) * (z:zs)!i > + ...
+              = { rango unitario }
+              = k * (z:zs)!i + ...
+              = { def de ! }
+              = k * z + < Sum i: 1 <= i < #(z:zs) : (i+k) * (z:zs)!i >
+              = { cambio de variable }
+              = k * z + < Sum i: 1 <= i+1 < #(z:zs) : (i+1+k) * (z:zs)!(i+1) >
+              = { def de # y lógica }
+              = k * z + < Sum i: 0 <= i < #zs : (i+1+k) * (z:zs)!(i+1) >
+              = { def de ! }
+              = k * z + < Sum i: 0 <= i < #zs : (i+(1+k)) * zs!i >
+              = { HI }
+              = k * z + fgen.(k+1).zs
+
+----------------------------------------------
+f.xs = fgen.1.xs
+
+fgen.k.[]     = 0                       (3)
+fgen.k.(z:zs) = k * z + fgen.(k+1).zs   (4)
+----------------------------------------------
+
+evaluación de f.[1,2,0,4,8] (con ecuaciones (1) y (2))
+
+f.[1,2,0,4,8]
+  = { def de f (ecuación 2, con z = 1, zs = [2,0,4,8]) }
+  = 1 + f.[2,0,4,8] + sum.[2,0,4,8]
+  = { def de f (ecuación 2, con z = 2, zs = [0,4,8]), def de sum }
+  = 1 + (2 + f.[0,4,8] + sum.[0,4,8]) + 14
+  = { def de f (ecuación 2, con z = 0, zs = [4,8]), def de sum }
+  = 1 + (2 + (0 + f.[4,8] + sum.[4,8]) + 12) + 14
+  = { def de f (ecuación 2, con z = 4, zs = [8]), def de sum }
+  = 1 + (2 + (0 + (4 + f.[8] + sum.[8]) + 12) + 12) + 14
+  = { def de f (ecuación 2, con z = 8, zs = []), def de sum }
+  = 1 + (2 + (0 + (4 + (8 + f.[] + sum.[]) + 8) + 12) + 12) + 14
+  = { def de f (ecuación 1), def de sum }
+  = 1 + (2 + (0 + (4 + (8 + 0 + 0) + 8) + 12) + 12) + 14
+  = { aritmética }
+  = 61
+
+================================================================================
+maxpref.e.(x:xs) = ⟨Max b, bs, cs : x = b ∧ xs = bs ++ cs ∧ (b = e) ∧ iga.e.bs : 1 + #bs ⟩
+= { transit. de = }
+⟨Max b, bs, cs : x = e ∧ xs = bs ++ cs ∧  iga.e.bs : 1 + #bs ⟩
+
+================================================================================
+h.xs = <Max as, bs: xs = as ++ bs && pares.as : sum.as>
+pares.(a:as) = par.a && pares.as (*)
+
+caso inductivo xs = z:zs
+asumimos h.zs = <Max as, bs: zs = as ++ bs && pares.as : sum.as>
+
+h.(z:zs) = <Max as, bs: (z:zs) = as ++ bs && pares.as : sum.as>
+         = { tercero excluido }
+         = <Max as, bs: (as = [] || as != []) && (z:zs) = as ++ bs && pares.as : sum.as>
+         = { distributividad de && con || y partición de rango }
+         = <Max as, bs: as != [] && (z:zs) = as ++ bs && pares.as : sum.as> max ...
+         = { cambio de variable }
+         = <Max a, as, bs: (a:as) != [] && (z:zs) = (a:as) ++ bs && pares.(a:as) : sum.(a:as)> max ...
+         = { lógica y propiedades de listas }
+         = <Max a, as, bs: z = a && zs = as ++ bs && pares.(a:as) : sum.(a:as)> max ...
+         = { eliminación de variable }
+         = <Max as, bs: zs = as ++ bs && pares.(z:as) : sum.(z:as)> max ...
+         = { (*) y def de sum }
+         = <Max as, bs: zs = as ++ bs && par.z && pares.as : z + sum.as> max ...
+
+CASO not par.z
+         = <Max as, bs: zs = as ++ bs && False && pares.as : z + sum.as> max ...
+         = { absorción y rango vacío}
+         = -inf max <Max as, bs: as == [] && (z:zs) = as ++ bs && pares.as : sum.as>
+         = { eliminación de variable y propiedades de listas }
+         = -inf max <Max bs: (z:zs) = bs && pares.[] : sum.[]>
+         = { neutro de max, def de pares y sum }
+         = <Max bs: (z:zs) = bs && True : 0>
+         = { término constante }
+         = 0
+
+CASO  par.z
+         = <Max as, bs: zs = as ++ bs && True && pares.as : z + sum.as> max ...
+         = { neutro del && }
+         = <Max as, bs: zs = as ++ bs && pares.as : z + sum.as> max ...
+         = { HI }
+         = h.zs max <Max as, bs: as == [] && (z:zs) = as ++ bs && pares.as : sum.as>
+         = { idem CASO not par.z }
+         = h.zs max 0
+
+
+================================================================================
+pin8.xs = gpin8.1.xs (1)
+
+gpin8.n.[] = n == 8                         (2)
+gpin8.n.(x:xs) = n == 8 || gpin8.(n*x).xs   (3)
+
+pin8.[2,4,7]
+ = { def de pin8 (1) }
+ = gpin8.1.[2,4,7]
+ = { def de gpin8 (ecuación 3 con n = 1, x = 2, xs = [4,7]) }
+ = 1 == 8 || gpin8.(1*2).[4,7]
+ = { aritmética }
+ = False || gpin8.(2).[4,7]
+ = { neutro de || }
+ = gpin8.2.[4,7]
+ = { def de gpin8 (ecuación 3 con n = 2, x = 4, xs = [7]) }
+ = 2 == 8 || gpin8.(2*4).[7]
+ = { lógica y def de gpin8 (ecuación 3 con n = 8, x = 7, xs = []) }
+ = 8 == 8 || gpin8.(8*7).[]
+ = { lógica }
+ = True
+ 
+
+================================================================================
+f.xs = <N as, bs, cs : xs = as ++ bs ++ cs : 8 = sum.bs>
+
+por inducción en xs
+caso base xs = []
+f.[] = <N as, bs, cs : [] = as ++ bs ++ cs : 8 = sum.bs>
+     = { propiedades de listas }
+     = <N as, bs, cs : [] = as = bs = cs : 8 = sum.bs>
+     = { eliminación de variable }
+     = <N as, cs : [] = as = cs : 8 = sum.[]>
+     = { def de suma y aritmética }
+     = <N as, cs : [] = as = cs : False>
+     = { neutro de && }
+     = <N as, cs : [] = as = cs : False && True>
+     = { intercambio rango término }
+     = <N as, cs : [] = as = cs && False : True>
+     = { absorbente && y rango vacío }
+     = 0
+
+caso inductivo xs = z:zs
+asumimos f.zs = <N as, bs, cs : zs = as ++ bs ++ cs : 8 = sum.bs>
+f.(z:zs) = <N as, bs, cs : (z:zs) = as ++ bs ++ cs : 8 = sum.bs>
+         = { tercero excluido }
+         = <N as, bs, cs : (as = [] || as != []) && (z:zs) = as ++ bs ++ cs : 8 = sum.bs>
+         = { lógica y partición de rango }
+         = <N as, bs, cs : as != [] && (z:zs) = as ++ bs ++ cs : 8 = sum.bs> + ...
+         = { cambio de variable }
+         = <N a, as, bs, cs : (a:as) != [] && (z:zs) = (a:as) ++ bs ++ cs : 8 = sum.bs> + ...
+         = { lógica y propiedades de listas }
+         = <N a, as, bs, cs : z = a && zs = as ++ bs ++ cs : 8 = sum.bs> + ...
+         = { eliminación de variable }
+         = <N as, bs, cs : zs = as ++ bs ++ cs : 8 = sum.bs> + ...
+         = { HI }
+         = f.zs + <N as, bs, cs : as = [] && (z:zs) = as ++ bs ++ cs : 8 = sum.bs>
+         = { eliminación de variable y propiedades de listas }
+         = f.zs + <N bs, cs : (z:zs) = bs ++ cs : 8 = sum.bs>
+         = { modularización }
+         = f.zs + fpref.(z:zs)
+
+----------------------------------------
+f.[] = 0
+f.(z:zs) = f.zs + fpref.(z:zs)
+----------------------------------------
+
+fpref.xs = <N bs, cs : xs = bs ++ cs : 8 = sum.bs>
+
+por inducción en xs
+caso inductivo xs = z:zs
+
+fpref.(z:zs) = <N bs, cs : (z:zs) = bs ++ cs : 8 = sum.bs>
+             = { tercero excluido }
+             = <N as, bs, cs : (bs = [] || bs != []) && (z:zs) = bs ++ cs : 8 = sum.bs>
+             = { lógica y partición de rango }
+             = <N as, bs, cs : bs != [] && (z:zs) = bs ++ cs : 8 = sum.bs> + ...
+             = { cambio de variable }
+             = <N as, b, bs, cs : (b:bs) != [] && (z:zs) = (b:bs) ++ cs : 8 = sum.(b:bs)> + ...
+             = { lógica y propiedades de listas }
+             = <N as, b, bs, cs : z = b && zs = bs ++ cs : 8 = sum.(b:bs)> + ...
+             = { eliminación de variable y def de sum }
+             = <N as, bs, cs : zs = bs ++ cs : 8 = z + sum.bs> + ...
+
+propongo fprefgen.k.xs = <N bs, cs : xs = bs ++ cs : 8 = k + sum.bs>
+
+entonces fpref.xs = fprefgen.0.xs
+
+derivamos fprefgen por inducción en xs
+
+caso base xs = []:
+fprefgen.k.[] = ?
+
+caso inductivo xs = z:zs:
+asumimos fprefgen.k.zs = <N bs, cs : zs = bs ++ cs : 8 = k + sum.bs>
+fprefgen.k.(z:zs)
+        = { tercero excluido }
+        = <N as, bs, cs : (bs = [] || bs != []) && (z:zs) = bs ++ cs : 8 = k + sum.bs>
+        = { lógica y partición de rango }
+        = <N as, bs, cs : bs != [] && (z:zs) = bs ++ cs : 8 = k + sum.bs> + ...
+        = { cambio de variable }
+        = <N as, b, bs, cs : (b:bs) != [] && (z:zs) = (b:bs) ++ cs : 8 = k + sum.(b:bs)> + ...
+        = { lógica y propiedades de listas }
+        = <N as, b, bs, cs : z = b && zs = bs ++ cs : 8 = k + sum.(b:bs)> + ...
+        = { eliminación de variable y def de sum }
+        = <N as, bs, cs : zs = bs ++ cs : 8 = k + z + sum.bs> + ...
+        = { HI }
+        = fprefgen.(k+z).zs + <N as, bs, cs : bs = [] && (z:zs) = bs ++ cs : 8 = k + sum.bs>
+        = { eliminación de variable }
+        = fprefgen.(k+z).zs + <N as, cs : (z:zs) = [] ++ cs : 8 = k + sum.[]>
+        = { propiedades de listas y def de sum }
+        = fprefgen.(k+z).zs + <N as, cs : (z:zs) = cs : 8 = k + 0>
+        = { rango unitario }
+        = fprefgen.(k+z).zs + (
+            8 = k -> 1
+          | 8 != k -> 0
+          )
+
+------------------------------------------------------------
+fpref.xs = fprefgen.0.xs
+
+fprefgen.k.[]     = ?
+fprefgen.k.(z:zs) = fprefgen.(k+z).zs + ( 8 = k -> 1
+                                        | 8 != k -> 0
+                                        )
+------------------------------------------------------------

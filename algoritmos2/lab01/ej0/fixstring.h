@@ -5,13 +5,14 @@
 
 #define FIXSTRING_MAX 100
 
-typedef char fixstring[FIXSTRING_MAX];
+typedef char fixstring [FIXSTRING_MAX];
 
 unsigned int fstring_length(fixstring s);
 /*
  * Returns the length of the string <s>
  *
  */
+
 
 bool fstring_eq(fixstring s1, fixstring s2);
 /*
@@ -25,4 +26,6 @@ bool fstring_less_eq(fixstring s1, fixstring s2);
  *
  */
 
+
 #endif
+
