@@ -11,7 +11,8 @@
 /* Maximum allowed length of the array */
 static const unsigned int MAX_SIZE = 100000u;
 
-void print_help(char *program_name) {
+void print_help(char *program_name)
+{
     /* Print the usage help of this program. */
     printf("Usage: %s <input file path>\n\n"
            "Sort an array given in a file in disk.\n"
@@ -28,11 +29,13 @@ void print_help(char *program_name) {
            program_name);
 }
 
-char *parse_filepath(int argc, char *argv[]) {
+char *parse_filepath(int argc, char *argv[])
+{
     /* Parse the filepath given by command line argument. */
     char *result = NULL;
 
-    if (argc < 2) {
+    if (argc < 2)
+    {
         print_help(argv[0]);
         exit(EXIT_FAILURE);
     }
@@ -42,7 +45,8 @@ char *parse_filepath(int argc, char *argv[]) {
     return result;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     char *filepath = NULL;
 
     /* parse the filepath given in command line arguments */
@@ -57,6 +61,9 @@ int main(int argc, char *argv[]) {
     /* create a copy of the array, to do some checks later */
     int copy[MAX_SIZE];
     array_copy(copy, array, length);
+
+    /*do the actual sorting*/
+    quick_sort(array, length);
 
     /* show the ordered array in the screen */
     array_dump(array, length);
