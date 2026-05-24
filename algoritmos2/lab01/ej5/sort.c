@@ -8,17 +8,48 @@
 #include "sort.h"
 #include "fixstring.h"
 
-
-static unsigned int partition(fixstring a[], unsigned int izq, unsigned int der) {
-    /* copiá acá la implementación que hiciste en el ejercicio 3 */
+static unsigned int partition(fixstring a[], unsigned int izq, unsigned int der)
+{
+    printf("izq: %u, der: %u\n", izq, der);
+    unsigned int ppiv = izq; /* pivot es el primer elemento del arreglo */
+    unsigned int i = izq + 1;
+    unsigned int j = der;
+    while (i <= j)
+    {
+        if (goes_before(a[i], a[ppiv]))
+        {
+            i++;
+        }
+        else if (goes_before(a[ppiv], a[j])) // goes_before(valorMasChico, valorMasGrande)=== valorMasChico <= valorMasGrande
+        {
+            j--;
+        }
+        else
+        {
+            swap(a, i, j);
+            i++;
+            j--;
+        }
+    }
+    swap(a, ppiv, j);
+    ppiv = j;
+    return ppiv;
 }
 
-static void quick_sort_rec(fixstring a[], unsigned int izq, unsigned int der) {
-    /* copiá acá la implementación que hiciste en el ejercicio 3 */
+static void quick_sort_rec(fixstring a[], unsigned int izq, unsigned int der)
+{
+    if (der > izq)
+    {
+        unsigned int ppiv = partition(a, izq, der);
+        // array_dump(a, der);
+        if (ppiv > izq)
+        {
+            quick_sort_rec(a, izq, ppiv - 1);
+        }
+        quick_sort_rec(a, ppiv + 1, der);
+    }
 }
-
-void quick_sort(fixstring a[], unsigned int length) {
+void quick_sort(fixstring a[], unsigned int length)
+{
     quick_sort_rec(a, 0, (length == 0) ? 0 : length - 1);
 }
-
-
