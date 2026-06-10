@@ -70,4 +70,34 @@ list concat(list l, list l0)
 
 elem index(list l, int n)
 {
+    return l->a[(l->start + n) % MAX_LENGTH];
+}
+
+list take(list l, int n)
+{
+    if (n <= 0)
+    {
+        l->size = 0;
+    }
+    else if (n < l->size)
+    {
+        l->size = n;
+    }
+
+    return l;
+}
+
+list drop(list l, int n)
+{
+    if (n < l->size && n > 0)
+    {
+        l->start = (l->start + n) % MAX_LENGTH;
+        l->size -= n;
+    }
+    else if (n >= l->size)
+    {
+        l->size = 0;
+    }
+
+    return l;
 }

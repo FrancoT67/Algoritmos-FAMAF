@@ -100,7 +100,7 @@ list take(list l, int n)
 }
 list drop(list l, int n)
 {
-    if (n < l->size && n >= 0)
+    if (n < l->size && n > 0)
     {
         for (int i = 0; i < l->size - n; i++)
         {
